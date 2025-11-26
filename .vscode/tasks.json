@@ -1,0 +1,43 @@
+{
+  // For more information, visit: https://go.microsoft.com/fwlink/?LinkId=733558
+  "version": "2.0.0",
+  "options": {
+    "env": {
+      "DOCKER_REGISTRY": "",
+      "BUILDKIT_PROGRESS": "plain"
+    }
+  },
+  "tasks": [ 
+    {
+      "type": "npm",
+      "script": "start",
+      "path": "src/front/webapp",
+      "problemMatcher": [],
+      "label": "npm: start - src/front/webapp",
+      "detail": "ng serve"
+    },   
+    {
+      "type": "npm",
+      "script": "lint",
+      "path": "src/front/webapp",
+      "problemMatcher": [],
+      "label": "npm: lint - src/front/webapp",
+      "detail": "ng lint"
+    },
+    {
+      "type": "npm",
+      "script": "lint-fix",
+      "path": "src/front/webapp",
+      "problemMatcher": [],
+      "label": "npm: lint auto fix - src/front/webapp",
+      "detail": "ng lint-fix"
+    },   
+    {
+      "type": "npm",
+      "script": "generate-api-client",
+      "path": "src/front/webapp",
+      "problemMatcher": [],
+      "label": "Generate nswag api client"
+    },
+  ]
+}

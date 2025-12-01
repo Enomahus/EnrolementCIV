@@ -1,0 +1,14 @@
+<div class="language-selector">
+  <select
+    class="language-menu"
+    id="lang-select"
+    [value]="currentLang$ | async"
+    (change)="onLangChange($any($event.target).value)"
+  >
+    @for (lang of langItems; track lang.code) {
+      <option [value]="lang.code">
+        {{ lang.displayText }}
+      </option>
+    }
+  </select>
+</div>

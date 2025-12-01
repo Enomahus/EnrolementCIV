@@ -1,0 +1,76 @@
+{
+  "global": {
+    "login": "Se connecter",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "yes": "Oui",
+    "no": "Non",
+    "search": "Rechercher",
+    "delete": "Supprimer",
+    "confirmation": "Confirmation",
+    "quitWithoutSaving": "Quitter sans sauvegarder ?",
+    "returnText": "Vous êtes sur le point de quitter cette page. Les informations saisies dans le formulaire risquent d'être perdues.\nVoulez-vous vraiment continuer ?",
+    "confirm": "Confirmer",
+    "deleteConfirmation": "Confirmation de suppression",
+    "disableConfirmation": "Confirmation de désactivation",
+    "updateConfirmation": "Confirmation de mise à jour",
+    "back": "Retour",
+    "details": "Détails",
+    "edit": "Editer",
+    "notFound": "Ressource introuvable",
+    "errorGetCurrentUser": "Erreur lors de la récupération de l'utilisateur courant.",
+    "missingData": "N/A",
+    "titleTemplate": "{{title}} | {{project}} | CEI",
+    "noTitleTemplate": "{{project}} | CEI",
+    "projectTitle": "Enrôlement"
+  },
+  "footer": {
+    "appName": "Éco-modulation",
+    "copyright": "© 2025 Tous droits réservés.",
+    "company": "Commission électorale indépendante"
+  },
+  "forgotPassword": {
+    "email": "Adresse mail",
+    "forgotActionButton": "Recevoir le mail de réinitialisation",
+    "mailAlreadySendButton": "Mail envoyé !",
+    "returnToLogin": "Retour à la page de connexion",
+    "success": "Mail de réinitialisation envoyé si un compte existe avec cet email.",
+    "placeholder": "Entrez votre email"
+  },
+  "formsError": {
+    "emailInvalid": "L'email n'est pas au bon format",
+    "max": "La valeur doit être inférieure ou égale à {{max}}",
+    "maxAttachments": "Vous ne pouvez pas charger plus de {{max}} pièces jointes",
+    "min": "La valeur doit être supérieure ou égale à {{min}}",
+    "mobileInvalid": "Le mobile n'est pas au bon format",
+    "onlyNumberPav": "L'identifiant PAV doit contenir seulement des chiffres",
+    "passwordFormat": "Le mot de passe doit contenir entre 8 et 24 caractères et avoir au moins une lettre minuscule, une lettre majuscule et un chiffre",
+    "passwordMismatch": "Les mots de passe ne correspondent pas",
+    "phoneInvalid": "Le téléphone n'est pas au bon format",
+    "positiveDecimal": "La valeur doit être supérieure ou égale à 0",
+    "positiveInteger": "La valeur doit être un entier supérieur ou égal à 0",
+    "required": "Champ requis"
+  },
+  "login": {
+    "anonymousRequest": "Je souhaite faire une demande d'enlèvement sans m'identifier",
+    "contactUs": "Nous contacter :",
+    "forgotPassword": "J'ai oublié mon mot de passe",
+    "guestLoginFailed": "Accès invité refusé",
+    "loginFailed": "Mot de passe ou identifiant erroné",
+    "password": "Mot de passe",
+    "passwordConfirm": "Confirmation du mot de passe",
+    "title": "Connexion",
+    "username": "Identifiant (email)"
+  },
+  "home": {
+    "title": "Accueil"
+  },
+  "navbar": {
+    "administration": "Administration",
+    "displayMenu": "Afficher le menu",
+    "logout": "Se déconnecter",
+    "home": "Accueil",
+    "onlineGuide": "Online guide",
+    "users": "Utilisateurs"
+  }
+}

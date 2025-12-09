@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "AppDbDesign": "Server=localhost,43100;Database=EnrolmentDb;Connection Lifetime=30;User ID=sa;Password=@ce!gouv225;Encrypt=False"
+  }
+}

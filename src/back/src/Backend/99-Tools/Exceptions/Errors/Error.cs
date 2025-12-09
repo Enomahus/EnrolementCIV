@@ -1,6 +1,6 @@
 ﻿namespace Tools.Exceptions.Errors
 {
-    public sealed class Error(
+    public sealed record Error(
         ErrorCode Code,
         string Description,
         ErrorKind Kind,

@@ -50,9 +50,13 @@
       "port": 43100,
       "driver": "MSSQL",
       "name": "ENROLEMENT local",
-      "database": "AppDb",
+      "database": "EnrolmentDb",
       "username": "sa",
       "password": "@ce!gouv225"
     }
-  ]
+  ],
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#fa4305",
+    "titleBar.inactiveBackground": "#fa4305"
+  }
 }

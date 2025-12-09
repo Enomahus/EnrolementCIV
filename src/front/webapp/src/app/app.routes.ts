@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { ForgotPassword } from './pages/forgot-password/forgot-password';
 import { Home } from './pages/home/home';
+import { CreateAccount } from './pages/login/create-account/create-account';
 import { Login } from './pages/login/login';
 import { OnlineGuide } from './pages/online-guide/online-guide';
 import { ResetPassword } from './pages/reset-password/reset-password';
@@ -36,6 +37,11 @@ export const routes: Routes = [
         path: 'guide',
         component: OnlineGuide,
         title: 'navbar.onlineGuide',
+      },
+      {
+        path: 'register',
+        component: CreateAccount,
+        title: 'register.title',
       },
     ],
   },

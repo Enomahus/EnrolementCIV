@@ -1,5 +1,5 @@
-import { Component, computed, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, computed, inject, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { Loader } from '@app/shared/loader/loader';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoginTemplate } from './login-template/login-template';
@@ -12,6 +12,7 @@ import { LoginTemplate } from './login-template/login-template';
   styleUrl: './login.scss',
 })
 export class Login {
+  private readonly router = inject(Router);
   public userName = signal('');
   public password = signal('');
   isLoggingIn = signal(false);
@@ -43,6 +44,9 @@ export class Login {
         username: this.userName(),
         password: this.password(),
       });
+      if (this.userName() === 'bolan' && this.password() === 'Secret01') {
+        this.router.navigateByUrl('/register');
+      }
     } else {
       console.warn('Formulaire invalide');
     }

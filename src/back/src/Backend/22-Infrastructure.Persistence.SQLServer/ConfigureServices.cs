@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Pcea.Core.Net.Authorization.Persistence.Interfaces.Services;
 
 namespace Infrastructure.Persistence.SQLServer
 {
@@ -16,14 +17,14 @@ namespace Infrastructure.Persistence.SQLServer
             IConfiguration configuration
         )
         {
-            var cnxString = configuration.GetConnectionString("AppDb");
+            var connectionString = configuration.GetConnectionString("AppDb");
 
-            if (!string.IsNullOrEmpty(cnxString))
+            if (!string.IsNullOrEmpty(connectionString))
             {
                 services.AddDbContext<ApplicationDbContext>(options =>
                 {
                     options.UseSqlServer(
-                        cnxString,
+                        connectionString,
                         b =>
                         {
                             b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
@@ -36,7 +37,7 @@ namespace Infrastructure.Persistence.SQLServer
                 services.AddDbContext<ReadOnlyDbContext>(options =>
                 {
                     options.UseSqlServer(
-                        cnxString,
+                        connectionString,
                         b =>
                         {
                             b.EnableRetryOnFailure();
@@ -48,7 +49,7 @@ namespace Infrastructure.Persistence.SQLServer
                 services.AddDbContext<WritableDbContext>(options =>
                 {
                     options.UseSqlServer(
-                        cnxString,
+                        connectionString,
                         b =>
                         {
                             b.EnableRetryOnFailure();
@@ -57,7 +58,7 @@ namespace Infrastructure.Persistence.SQLServer
                     );
                 });
             }
-            //services.AddScoped<IPermissionsProvider<Guid>, PermissionProvider>();
+            services.AddScoped<IPermissionsProvider<Guid>, PermissionProvider>();
 
             return services;
         }

@@ -19,6 +19,8 @@ services:
     depends_on:
       enrolement.mail_catcher:
         condition: service_started
+      enrolement.database.init:
+        condition: service_completed_successfully
       enrolement.database:
         condition: service_healthy
       enrolement.jaeger:
@@ -54,6 +56,20 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+
+  enrolement.database.init:
+    container_name: enrolement.database.init
+    image: 'mcr.microsoft.com/mssql/server:2022-CU13-ubuntu-22.04'
+    volumes:
+      - ../dbinit:/docker-entrypoint-initdb.d
+    depends_on:
+      enrolement.database:
+        condition: service_healthy
+    command: >
+      bash -c '
+      /opt/mssql-tools/bin/sqlcmd -S enreolement.database -U sa -P @ce!gouv225 -d master -i docker-entrypoint-initdb.d/init.sql;
+      echo "All done!";
+      '
 
   enrolement.mail_catcher:
     container_name: "enrolement.mail_catcher"

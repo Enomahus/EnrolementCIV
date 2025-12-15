@@ -12,7 +12,8 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
     public class TestDataSeeder(
         WritableDbContext context,
         UserManager<UserDao> userManager,
-        IOptions<DataConfiguration> dataConfig
+        IOptions<DataConfiguration> dataConfig,
+        TimeProvider timeProvider
     ) : SeederBase(context, userManager)
     {
         public override async Task SeedDataAsync()
@@ -36,7 +37,7 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
 
         private async Task SeedUsersAsync()
         {
-            var users = GetMockUsers(DateTimeOffset.Now);
+            var users = GetMockUsers(timeProvider.GetUtcNow());
 
             foreach (var user in users)
             {
@@ -51,102 +52,103 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
         {
             var users = new List<Tuple<UserDao, List<string>>>
             {
-                Tuple.Create(
-                    new UserDao()
+                Tuple.Create<UserDao, List<string>>(
+                    new()
                     {
+                        Title = PersonTitle.Mr,
                         UserName = "admin",
                         FirstName = "John",
                         LastName = "Doe",
                         Email = "john.doe@pcea.com",
                         PhoneNumber = "01 02 03 04 05",
-                        UserType = UserType.ElectionOfficer,
                     },
-                    new List<string> { AppConstants.SuperAdminRole }
+                    [AppConstants.SuperAdminRole]
                 ),
-                Tuple.Create(
-                    new UserDao()
+                Tuple.Create<UserDao, List<string>>(
+                    new()
                     {
+                        Title = PersonTitle.Mr,
                         UserName = "user1",
                         FirstName = "Sam",
                         LastName = "Gamegie",
                         PhoneNumber = "01 02 03 04 05",
-                        UserType = UserType.Voter,
                         Email = "sam.gamegie@pcea.com",
                     },
-                    new List<string> { UserType.Voter.ToString() }
+                    [AppConstants.SupervisorRole]
                 ),
-                Tuple.Create(
-                    new UserDao()
+                Tuple.Create<UserDao, List<string>>(
+                    new()
                     {
+                        Title = PersonTitle.Mr,
                         UserName = "user2",
                         FirstName = "Bilbo",
                         LastName = "Baggins",
                         PhoneNumber = "01 02 03 04 05",
-                        UserType = UserType.Candidate,
                         Email = "bilbo.baggins@pcea.com",
                     },
-                    new List<string> { UserType.Voter.ToString(), UserType.Candidate.ToString() }
+                    [AppConstants.ElectorRole]
                 ),
-                Tuple.Create(
-                    new UserDao()
+                Tuple.Create<UserDao, List<string>>(
+                    new()
                     {
+                        Title = PersonTitle.Mrs,
                         UserName = "user3",
                         FirstName = "Merry",
                         LastName = "Brandybuck",
                         PhoneNumber = "01 02 03 04 05",
                         Email = "merry.brandybuck@pcea.com",
-                        UserType = UserType.Candidate,
                     },
-                    new List<string> { UserType.Candidate.ToString() }
+                    [AppConstants.CommissionChairmanRole]
                 ),
-                Tuple.Create(
-                    new UserDao()
+                Tuple.Create<UserDao, List<string>>(
+                    new()
                     {
+                        Title = PersonTitle.Mr,
                         UserName = "user4",
                         FirstName = "Arwen",
                         LastName = "Evenstar",
                         PhoneNumber = "01 02 03 04 05",
                         Email = "arwen.evenstar@pcea.com",
-                        UserType = UserType.ElectionOfficer,
                     },
-                    new List<string>
-                    {
-                        UserType.ElectionOfficer.ToString(),
-                        UserType.Voter.ToString(),
-                    }
+                    [AppConstants.DataEntryOperatorRole]
                 ),
-                Tuple.Create(
-                    new UserDao()
+                Tuple.Create<UserDao, List<string>>(
+                    new()
                     {
+                        Title = PersonTitle.Mr,
                         UserName = "user5",
                         FirstName = "Harvey",
                         LastName = "Spector",
                         PhoneNumber = "06 02 03 04 05",
                         Email = "harvey.spector@pcea.com",
-                        UserType = UserType.ElectionOfficer,
                     },
-                    new List<string>
-                    {
-                        UserType.ElectionOfficer.ToString(),
-                        UserType.Voter.ToString(),
-                    }
+                    [AppConstants.ElectorRole]
                 ),
-                Tuple.Create(
-                    new UserDao()
+                Tuple.Create<UserDao, List<string>>(
+                    new()
                     {
+                        Title = PersonTitle.Mrs,
                         UserName = "user6",
                         FirstName = "Julie",
                         LastName = "Dupuy",
                         PhoneNumber = "07 02 03 04 05",
                         Email = "julie.dupuy@pcea.com",
-                        UserType = UserType.ElectionOfficer,
                         DisabledDate = now.AddDays(-1),
                     },
-                    new List<string>
+                    [AppConstants.ElectorRole]
+                ),
+                Tuple.Create<UserDao, List<string>>(
+                    new()
                     {
-                        UserType.ElectionOfficer.ToString(),
-                        UserType.Voter.ToString(),
-                    }
+                        Title = PersonTitle.Mr,
+                        UserName = "user7",
+                        FirstName = "Bolan",
+                        LastName = "Marck",
+                        PhoneNumber = "07 02 08 04 05",
+                        Email = "bolan.marck@pcea.com",
+                        DisabledDate = now.AddDays(-1),
+                    },
+                    [AppConstants.ElectorRole]
                 ),
             };
 

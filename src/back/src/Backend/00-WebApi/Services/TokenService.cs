@@ -131,7 +131,7 @@ namespace WebApi.Services
         //    return claims;
         //}
 
-        private static IEnumerable<Claim> GetClaims(UserDao user, IEnumerable<string> roles)
+        private static List<Claim> GetClaims(UserDao user, IEnumerable<string> roles)
         {
             var userId = user.Id.ToString();
             var userName = user.UserName ?? string.Empty;

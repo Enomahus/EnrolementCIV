@@ -18,14 +18,14 @@ namespace ServicesConfiguration
         )
         {
             services.AddMediator();
-            services.AddApplicationServices();
-            services.AddApplicationFeaturesServices();
+            services.AddToolsServices(config);
             services.AddInfrastructureServices(config);
             services.AddInfrastructurePersistenceServices(config);
             services.AddInfrastructureSQLServerServices(config);
             services.AddInfrastructureEmailServices(config);
             services.AddInfrastructureIdentityServices(config);
-            services.AddToolsServices(config);
+            services.AddApplicationServices();
+            services.AddApplicationFeaturesServices();
 
             return services;
         }

@@ -17,7 +17,7 @@ namespace Infrastructure.Persistence.Entities
         public DateTimeOffset? DisabledDate { get; set; }
         public DateTimeOffset ModifiedAt { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
-        public UserType UserType { get; set; }
+        public PersonTitle Title { get; set; }
         public virtual ICollection<RefreshTokenDao> RefreshTokens { get; set; } = [];
         public virtual ICollection<UserRoleDao> UserRoles { get; set; }
     }

@@ -1,6 +1,7 @@
 ﻿using Infrastructure.Configurations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Pcea.Core.Net.Authorization.Persistence;
 using Tools.Exceptions;
 
 namespace Infrastructure
@@ -29,6 +30,7 @@ namespace Infrastructure
 
             services.Configure<TokenConfiguration>(configuration.GetSection("JwtConfig"));
             services.Configure<PdfPrinterConfiguration>(configuration.GetSection("Service:Print"));
+            services.AddPceaCoreNetAuthorizationPersistence();
 
             return services;
         }

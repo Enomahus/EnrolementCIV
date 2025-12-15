@@ -10,6 +10,7 @@
         PositiveNumber,
         GreaterThanZero,
         UserMustExist,
+        RoleMustExist,
         UserLinked,
         InvalidEmail,
         InvalidEnum,

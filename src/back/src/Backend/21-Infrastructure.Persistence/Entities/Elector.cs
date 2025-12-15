@@ -4,7 +4,7 @@ using Infrastructure.Persistence.Common;
 namespace Infrastructure.Persistence.Entities
 {
     //Electeurs
-    public class VoterDao : EntityBaseDao<Guid>, ITimestampedEntity
+    public class Elector : EntityBaseDao<Guid>, ITimestampedEntity
     {
         public string VoterNumber { get; set; }
         public DateTimeOffset RegistrationDate { get; set; }

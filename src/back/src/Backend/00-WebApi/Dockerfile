@@ -13,6 +13,19 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/Backend/00-WebApi/00-WebApi.csproj", "src/Backend/00-WebApi/"]
+COPY ["src/Backend/01-ServicesConfiguration/01-ServicesConfiguration.csproj", "src/Backend/01-ServicesConfiguration/"]
+COPY ["src/Backend/10-Application/10-Application.csproj", "src/Backend/10-Application/"]
+COPY ["src/Backend/11-Application.Features/11-Application.Features.csproj", "src/Backend/11-Application.Features/"]
+COPY ["src/Backend/12-Application.Common/12-Application.Common.csproj", "src/Backend/12-Application.Common/"]
+COPY ["src/Backend/20-Infrastructure/20-Infrastructure.csproj", "src/Backend/20-Infrastructure/"]
+COPY ["src/Backend/21-Infrastructure.Persistence/21-Infrastructure.Persistence.csproj", "src/Backend/21-Infrastructure.Persistence/"]
+COPY ["src/Backend/22-Infrastructure.Persistence.SQLServer/22-Infrastructure.Persistence.SQLServer.csproj", "src/Backend/22-Infrastructure.Persistence.SQLServer/"]
+COPY ["src/Backend/23-Infrastructure.Email/23-Infrastructure.Email.csproj", "src/Backend/23-Infrastructure.Email/"]
+COPY ["src/Backend/99-Tools/99-Tools.csproj", "src/Backend/99-Tools/"]
+COPY ["src/Backend/Pcea.Core/Pcea.Core.Net.Authorization/Pcea.Core.Net.Authorization.csproj", "src/Backend/Pcea.Core/Pcea.Core.Net.Authorization/"]
+COPY ["src/Backend/Pcea.Core/Pcea.Core.Net.Authorization.Application/Pcea.Core.Net.Authorization.Application.csproj", "src/Backend/Pcea.Core/Pcea.Core.Net.Authorization.Application/"]
+COPY ["src/Backend/Pcea.Core/Pcea.Core.Net.Authorization.Persistence/Pcea.Core.Net.Authorization.Persistence.csproj", "src/Backend/Pcea.Core/Pcea.Core.Net.Authorization.Persistence/"]
+COPY ["src/Backend/Pcea.Core/Pcea.Core.Net.Authorization.Web/Pcea.Core.Net.Authorization.Web.csproj", "src/Backend/Pcea.Core/Pcea.Core.Net.Authorization.Web/"]
 RUN dotnet restore "./src/Backend/00-WebApi/00-WebApi.csproj"
 COPY . .
 WORKDIR "/src/src/Backend/00-WebApi"

@@ -2,8 +2,9 @@
 {
     public enum UserType
     {
-        ElectionOfficer,
-        Candidate,
-        Voter,
+        CommissionChairman,
+        Supervisor,
+        DataEntryOperator,
+        Elector,
     }
 }

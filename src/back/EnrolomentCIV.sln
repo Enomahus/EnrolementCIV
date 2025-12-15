@@ -27,6 +27,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "23-Infrastructure.Email", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01-ServicesConfiguration", "src\Backend\01-ServicesConfiguration\01-ServicesConfiguration.csproj", "{0D582A65-7BAD-4870-9FA7-AF59EF1AA6DC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pcea.Core", "Pcea.Core", "{79D37923-6AC3-4476-BEA6-B8679188AE4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pcea.Core.Net.Authorization", "src\Backend\Pcea.Core\Pcea.Core.Net.Authorization\Pcea.Core.Net.Authorization.csproj", "{879F608B-996C-4429-AE99-41FC8160F699}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pcea.Core.Net.Authorization.Persistence", "src\Backend\Pcea.Core\Pcea.Core.Net.Authorization.Persistence\Pcea.Core.Net.Authorization.Persistence.csproj", "{DB695EF5-A97B-4441-96DA-804DBE3C81A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pcea.Core.Net.Authorization.Application", "src\Backend\Pcea.Core\Pcea.Core.Net.Authorization.Application\Pcea.Core.Net.Authorization.Application.csproj", "{48409AB0-E7F5-4325-AA24-C97747C61AE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pcea.Core.Net.Authorization.Web", "src\Backend\Pcea.Core\Pcea.Core.Net.Authorization.Web\Pcea.Core.Net.Authorization.Web.csproj", "{E07B6070-FC38-4A43-A429-E12AC7AE8BB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +87,22 @@ Global
 		{0D582A65-7BAD-4870-9FA7-AF59EF1AA6DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D582A65-7BAD-4870-9FA7-AF59EF1AA6DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D582A65-7BAD-4870-9FA7-AF59EF1AA6DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{879F608B-996C-4429-AE99-41FC8160F699}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{879F608B-996C-4429-AE99-41FC8160F699}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{879F608B-996C-4429-AE99-41FC8160F699}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{879F608B-996C-4429-AE99-41FC8160F699}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB695EF5-A97B-4441-96DA-804DBE3C81A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB695EF5-A97B-4441-96DA-804DBE3C81A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB695EF5-A97B-4441-96DA-804DBE3C81A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB695EF5-A97B-4441-96DA-804DBE3C81A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48409AB0-E7F5-4325-AA24-C97747C61AE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48409AB0-E7F5-4325-AA24-C97747C61AE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48409AB0-E7F5-4325-AA24-C97747C61AE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48409AB0-E7F5-4325-AA24-C97747C61AE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E07B6070-FC38-4A43-A429-E12AC7AE8BB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E07B6070-FC38-4A43-A429-E12AC7AE8BB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E07B6070-FC38-4A43-A429-E12AC7AE8BB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E07B6070-FC38-4A43-A429-E12AC7AE8BB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +118,11 @@ Global
 		{06363324-A8D2-4989-913E-9F7644A1D6A0} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{071A7704-3A6C-428E-AFE3-20900A57C404} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{0D582A65-7BAD-4870-9FA7-AF59EF1AA6DC} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{79D37923-6AC3-4476-BEA6-B8679188AE4C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{879F608B-996C-4429-AE99-41FC8160F699} = {79D37923-6AC3-4476-BEA6-B8679188AE4C}
+		{DB695EF5-A97B-4441-96DA-804DBE3C81A0} = {79D37923-6AC3-4476-BEA6-B8679188AE4C}
+		{48409AB0-E7F5-4325-AA24-C97747C61AE7} = {79D37923-6AC3-4476-BEA6-B8679188AE4C}
+		{E07B6070-FC38-4A43-A429-E12AC7AE8BB6} = {79D37923-6AC3-4476-BEA6-B8679188AE4C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {655083E3-2740-4ECE-8FCD-EC5ADA340AB3}

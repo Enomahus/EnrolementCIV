@@ -38,7 +38,7 @@ namespace Infrastructure.Persistence.Entities
         public DateTimeOffset CreatedAt { get; set; }
         public CoordinateDao Coordinate { get; set; } = new();
         public IdentityDocumentDao IdentityDocument { get; set; } = new();
-        public virtual ICollection<VoterDao> Voters { get; set; } = [];
+        public virtual ICollection<Elector> Voters { get; set; } = [];
         public virtual ICollection<RegistrationRequestDao> RegistrationRequests { get; set; } = [];
 
         // Navigation : Filiation

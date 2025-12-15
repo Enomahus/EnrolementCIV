@@ -6,7 +6,6 @@
 
 /* eslint-disable */
 // ReSharper disable InconsistentNaming
-
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
 import { CustomApiClient } from '@app/services/nswag/custom-api-client';
@@ -18,7 +17,7 @@ export const APP_BASE_URL = new InjectionToken<string>('APP_BASE_URL');
 @Injectable({
   providedIn: 'root',
 })
-export class ServerClient extends CustomApiClient {
+export class InfosServerClient extends CustomApiClient {
   private http: HttpClient;
   private baseUrl: string;
   protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -29,14 +28,11 @@ export class ServerClient extends CustomApiClient {
   ) {
     super();
     this.http = http;
-    this.baseUrl = baseUrl ?? '';
+    this.baseUrl = baseUrl ?? 'https://localhost:40145';
   }
 
-  /**
-   * @return OK
-   */
-  demo(): Observable<string> {
-    let url_ = this.baseUrl + '/demo';
+  getDate(): Observable<string> {
+    let url_ = this.baseUrl + '/info/date';
     url_ = url_.replace(/[?&]$/, '');
 
     let options_: any = {
@@ -51,14 +47,14 @@ export class ServerClient extends CustomApiClient {
       .request('get', url_, options_)
       .pipe(
         _observableMergeMap((response_: any) => {
-          return this.processDemo(response_);
+          return this.processGetDate(response_);
         }),
       )
       .pipe(
         _observableCatch((response_: any) => {
           if (response_ instanceof HttpResponseBase) {
             try {
-              return this.processDemo(response_ as any);
+              return this.processGetDate(response_ as any);
             } catch (e) {
               return _observableThrow(e) as any as Observable<string>;
             }
@@ -67,7 +63,7 @@ export class ServerClient extends CustomApiClient {
       );
   }
 
-  protected processDemo(response: HttpResponseBase): Observable<string> {
+  protected processGetDate(response: HttpResponseBase): Observable<string> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse
@@ -108,10 +104,346 @@ export class ServerClient extends CustomApiClient {
     return _observableOf(null as any);
   }
 
-  /**
-   * @return OK
-   */
-  getWeatherForecast(): Observable<WeatherForecast[]> {
+  getTimezone(): Observable<string> {
+    let url_ = this.baseUrl + '/info/timezone';
+    url_ = url_.replace(/[?&]$/, '');
+
+    let options_: any = {
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({
+        Accept: 'application/json',
+      }),
+    };
+
+    return this.http
+      .request('get', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processGetTimezone(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processGetTimezone(response_ as any);
+            } catch (e) {
+              return _observableThrow(e) as any as Observable<string>;
+            }
+          } else return _observableThrow(response_) as any as Observable<string>;
+        }),
+      );
+  }
+
+  protected processGetTimezone(response: HttpResponseBase): Observable<string> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result200: any = null;
+          result200 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as string);
+          return _observableOf(result200);
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf(null as any);
+  }
+
+  getVersion(): Observable<string> {
+    let url_ = this.baseUrl + '/info/version';
+    url_ = url_.replace(/[?&]$/, '');
+
+    let options_: any = {
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({
+        Accept: 'application/json',
+      }),
+    };
+
+    return this.http
+      .request('get', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processGetVersion(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processGetVersion(response_ as any);
+            } catch (e) {
+              return _observableThrow(e) as any as Observable<string>;
+            }
+          } else return _observableThrow(response_) as any as Observable<string>;
+        }),
+      );
+  }
+
+  protected processGetVersion(response: HttpResponseBase): Observable<string> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result200: any = null;
+          result200 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as string);
+          return _observableOf(result200);
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf(null as any);
+  }
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+export class HealthCheckServerClient extends CustomApiClient {
+  private http: HttpClient;
+  private baseUrl: string;
+  protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+  constructor(
+    @Inject(HttpClient) http: HttpClient,
+    @Optional() @Inject(APP_BASE_URL) baseUrl?: string,
+  ) {
+    super();
+    this.http = http;
+    this.baseUrl = baseUrl ?? 'https://localhost:40145';
+  }
+
+  checkHealth(): Observable<void> {
+    let url_ = this.baseUrl + '/';
+    url_ = url_.replace(/[?&]$/, '');
+
+    let options_: any = {
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({}),
+    };
+
+    return this.http
+      .request('get', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processCheckHealth(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processCheckHealth(response_ as any);
+            } catch (e) {
+              return _observableThrow(e) as any as Observable<void>;
+            }
+          } else return _observableThrow(response_) as any as Observable<void>;
+        }),
+      );
+  }
+
+  protected processCheckHealth(response: HttpResponseBase): Observable<void> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf(null as any);
+  }
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+export class DemoServerClient extends CustomApiClient {
+  private http: HttpClient;
+  private baseUrl: string;
+  protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+  constructor(
+    @Inject(HttpClient) http: HttpClient,
+    @Optional() @Inject(APP_BASE_URL) baseUrl?: string,
+  ) {
+    super();
+    this.http = http;
+    this.baseUrl = baseUrl ?? 'https://localhost:40145';
+  }
+
+  get(): Observable<string> {
+    let url_ = this.baseUrl + '/demo';
+    url_ = url_.replace(/[?&]$/, '');
+
+    let options_: any = {
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({
+        Accept: 'application/json',
+      }),
+    };
+
+    return this.http
+      .request('get', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processGet(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processGet(response_ as any);
+            } catch (e) {
+              return _observableThrow(e) as any as Observable<string>;
+            }
+          } else return _observableThrow(response_) as any as Observable<string>;
+        }),
+      );
+  }
+
+  protected processGet(response: HttpResponseBase): Observable<string> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result200: any = null;
+          result200 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as string);
+          return _observableOf(result200);
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf(null as any);
+  }
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+export class WeatherForecastServerClient extends CustomApiClient {
+  private http: HttpClient;
+  private baseUrl: string;
+  protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+  constructor(
+    @Inject(HttpClient) http: HttpClient,
+    @Optional() @Inject(APP_BASE_URL) baseUrl?: string,
+  ) {
+    super();
+    this.http = http;
+    this.baseUrl = baseUrl ?? 'https://localhost:40145';
+  }
+
+  get(): Observable<WeatherForecast[]> {
     let url_ = this.baseUrl + '/WeatherForecast';
     url_ = url_.replace(/[?&]$/, '');
 
@@ -127,14 +459,14 @@ export class ServerClient extends CustomApiClient {
       .request('get', url_, options_)
       .pipe(
         _observableMergeMap((response_: any) => {
-          return this.processGetWeatherForecast(response_);
+          return this.processGet(response_);
         }),
       )
       .pipe(
         _observableCatch((response_: any) => {
           if (response_ instanceof HttpResponseBase) {
             try {
-              return this.processGetWeatherForecast(response_ as any);
+              return this.processGet(response_ as any);
             } catch (e) {
               return _observableThrow(e) as any as Observable<WeatherForecast[]>;
             }
@@ -143,7 +475,7 @@ export class ServerClient extends CustomApiClient {
       );
   }
 
-  protected processGetWeatherForecast(response: HttpResponseBase): Observable<WeatherForecast[]> {
+  protected processGet(response: HttpResponseBase): Observable<WeatherForecast[]> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse
@@ -185,11 +517,654 @@ export class ServerClient extends CustomApiClient {
   }
 }
 
+@Injectable({
+  providedIn: 'root',
+})
+export class ServerClient extends CustomApiClient {
+  private http: HttpClient;
+  private baseUrl: string;
+  protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+  constructor(
+    @Inject(HttpClient) http: HttpClient,
+    @Optional() @Inject(APP_BASE_URL) baseUrl?: string,
+  ) {
+    super();
+    this.http = http;
+    this.baseUrl = baseUrl ?? 'https://localhost:40145';
+  }
+
+  /**
+   * Réinitialiser le mot de passe
+   */
+  resetPassword(command: ResetPasswordCommand): Observable<Result> {
+    let url_ = this.baseUrl + '/auth/ResetPassword';
+    url_ = url_.replace(/[?&]$/, '');
+
+    const content_ = JSON.stringify(command);
+
+    let options_: any = {
+      body: content_,
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      }),
+    };
+
+    return this.http
+      .request('put', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processResetPassword(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processResetPassword(response_ as any);
+            } catch (e) {
+              return _observableThrow(e) as any as Observable<Result>;
+            }
+          } else return _observableThrow(response_) as any as Observable<Result>;
+        }),
+      );
+  }
+
+  protected processResetPassword(response: HttpResponseBase): Observable<Result> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result200: any = null;
+          result200 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as Result);
+          return _observableOf(result200);
+        }),
+      );
+    } else if (status === 400) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result400: any = null;
+          result400 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as ResultOfError);
+          return throwException(
+            'A server side error occurred.',
+            status,
+            _responseText,
+            _headers,
+            result400,
+          );
+        }),
+      );
+    } else if (status === 401) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result401: any = null;
+          result401 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as ResultOfError);
+          return throwException(
+            'A server side error occurred.',
+            status,
+            _responseText,
+            _headers,
+            result401,
+          );
+        }),
+      );
+    } else if (status === 403) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result403: any = null;
+          result403 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as ResultOfError);
+          return throwException(
+            'A server side error occurred.',
+            status,
+            _responseText,
+            _headers,
+            result403,
+          );
+        }),
+      );
+    } else if (status === 404) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result404: any = null;
+          result404 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as ResultOfError);
+          return throwException(
+            'A server side error occurred.',
+            status,
+            _responseText,
+            _headers,
+            result404,
+          );
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf(null as any);
+  }
+
+  /**
+   * Renouvelle un access token.
+   */
+  refreshToken(query: RefreshTokenCommand): Observable<ResultOfTokenResponse> {
+    let url_ = this.baseUrl + '/auth/refreshtoken';
+    url_ = url_.replace(/[?&]$/, '');
+
+    const content_ = JSON.stringify(query);
+
+    let options_: any = {
+      body: content_,
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      }),
+    };
+
+    return this.http
+      .request('post', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processRefreshToken(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processRefreshToken(response_ as any);
+            } catch (e) {
+              return _observableThrow(e) as any as Observable<ResultOfTokenResponse>;
+            }
+          } else return _observableThrow(response_) as any as Observable<ResultOfTokenResponse>;
+        }),
+      );
+  }
+
+  protected processRefreshToken(response: HttpResponseBase): Observable<ResultOfTokenResponse> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result200: any = null;
+          result200 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as ResultOfTokenResponse);
+          return _observableOf(result200);
+        }),
+      );
+    } else if (status === 400) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result400: any = null;
+          result400 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as ResultOfError);
+          return throwException(
+            'A server side error occurred.',
+            status,
+            _responseText,
+            _headers,
+            result400,
+          );
+        }),
+      );
+    } else if (status === 401) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result401: any = null;
+          result401 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as ResultOfError);
+          return throwException(
+            'A server side error occurred.',
+            status,
+            _responseText,
+            _headers,
+            result401,
+          );
+        }),
+      );
+    } else if (status === 403) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result403: any = null;
+          result403 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as ResultOfError);
+          return throwException(
+            'A server side error occurred.',
+            status,
+            _responseText,
+            _headers,
+            result403,
+          );
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf(null as any);
+  }
+
+  /**
+   * Recevoir le mail de réinitialisation du mot de passe
+   */
+  forgotPassword(mail: string): Observable<Result> {
+    let url_ = this.baseUrl + '/auth/{mail}';
+    if (mail === undefined || mail === null)
+      throw new globalThis.Error("The parameter 'mail' must be defined.");
+    url_ = url_.replace('{mail}', encodeURIComponent('' + mail));
+    url_ = url_.replace(/[?&]$/, '');
+
+    let options_: any = {
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({
+        Accept: 'application/json',
+      }),
+    };
+
+    return this.http
+      .request('get', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processForgotPassword(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processForgotPassword(response_ as any);
+            } catch (e) {
+              return _observableThrow(e) as any as Observable<Result>;
+            }
+          } else return _observableThrow(response_) as any as Observable<Result>;
+        }),
+      );
+  }
+
+  protected processForgotPassword(response: HttpResponseBase): Observable<Result> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result200: any = null;
+          result200 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as Result);
+          return _observableOf(result200);
+        }),
+      );
+    } else if (status === 400) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result400: any = null;
+          result400 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as ResultOfError);
+          return throwException(
+            'A server side error occurred.',
+            status,
+            _responseText,
+            _headers,
+            result400,
+          );
+        }),
+      );
+    } else if (status === 401) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result401: any = null;
+          result401 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as ResultOfError);
+          return throwException(
+            'A server side error occurred.',
+            status,
+            _responseText,
+            _headers,
+            result401,
+          );
+        }),
+      );
+    } else if (status === 403) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result403: any = null;
+          result403 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as ResultOfError);
+          return throwException(
+            'A server side error occurred.',
+            status,
+            _responseText,
+            _headers,
+            result403,
+          );
+        }),
+      );
+    } else if (status === 404) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result404: any = null;
+          result404 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as ResultOfError);
+          return throwException(
+            'A server side error occurred.',
+            status,
+            _responseText,
+            _headers,
+            result404,
+          );
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf(null as any);
+  }
+
+  /**
+   * Authentifie un utilisateur.
+   */
+  authenticate(query: AuthenticateCommand): Observable<ResultOfTokenResponse> {
+    let url_ = this.baseUrl + '/auth/token';
+    url_ = url_.replace(/[?&]$/, '');
+
+    const content_ = JSON.stringify(query);
+
+    let options_: any = {
+      body: content_,
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      }),
+    };
+
+    return this.http
+      .request('post', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processAuthenticate(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processAuthenticate(response_ as any);
+            } catch (e) {
+              return _observableThrow(e) as any as Observable<ResultOfTokenResponse>;
+            }
+          } else return _observableThrow(response_) as any as Observable<ResultOfTokenResponse>;
+        }),
+      );
+  }
+
+  protected processAuthenticate(response: HttpResponseBase): Observable<ResultOfTokenResponse> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result200: any = null;
+          result200 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as ResultOfTokenResponse);
+          return _observableOf(result200);
+        }),
+      );
+    } else if (status === 400) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result400: any = null;
+          result400 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as ResultOfError);
+          return throwException(
+            'A server side error occurred.',
+            status,
+            _responseText,
+            _headers,
+            result400,
+          );
+        }),
+      );
+    } else if (status === 401) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result401: any = null;
+          result401 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as ResultOfError);
+          return throwException(
+            'A server side error occurred.',
+            status,
+            _responseText,
+            _headers,
+            result401,
+          );
+        }),
+      );
+    } else if (status === 403) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result403: any = null;
+          result403 =
+            _responseText === ''
+              ? null
+              : (JSON.parse(_responseText, this.jsonParseReviver) as ResultOfError);
+          return throwException(
+            'A server side error occurred.',
+            status,
+            _responseText,
+            _headers,
+            result403,
+          );
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf(null as any);
+  }
+}
+
 export interface WeatherForecast {
   date?: string;
   temperatureC?: number;
-  readonly temperatureF?: number;
+  temperatureF?: number;
   summary?: string | undefined;
+}
+
+export interface Result {
+  duration?: number;
+}
+
+export interface ResultOfError extends Result {
+  data?: ErrorDto | undefined;
+}
+
+export interface ErrorDto {
+  code?: ErrorCode;
+  description?: string;
+  kind?: ErrorKind;
+  additionalData?: { [key: string]: string };
+  values?: { [key: string]: string };
+}
+
+export enum ErrorCode {
+  None = 'none',
+  Validation = 'validation',
+  InvalidParameter = 'invalidParameter',
+  InvalidStatus = 'invalidStatus',
+  ResourceAlreadyExists = 'resourceAlreadyExists',
+  NotFound = 'notFound',
+  MissingData = 'missingData',
+  GenericServerError = 'genericServerError',
+  AccessRights = 'accessRights',
+  AuthenticationFailed = 'authenticationFailed',
+  ConfigurationMissing = 'configurationMissing',
+  DataSeeding = 'dataSeeding',
+  Storage = 'storage',
+  Export = 'export',
+}
+
+export enum ErrorKind {
+  None = 'none',
+  Authentication = 'authentication',
+  AccessRights = 'accessRights',
+  Validation = 'validation',
+  Technical = 'technical',
+  RequestData = 'requestData',
+  DomainRule = 'domainRule',
+}
+
+export interface ResetPasswordCommand {
+  userEmail?: string | undefined;
+  resetToken?: string | undefined;
+  password?: string | undefined;
+}
+
+export interface ResultOfTokenResponse extends Result {
+  data?: TokenResponse | undefined;
+}
+
+export interface TokenResponse {
+  accessToken?: string;
+  refreshToken?: string;
+}
+
+export interface RefreshTokenCommand {
+  userName?: string | undefined;
+  refreshToken?: string | undefined;
+}
+
+export interface AuthenticateCommand {
+  userName?: string | undefined;
+  password?: string | undefined;
 }
 
 export class ApiException extends Error {

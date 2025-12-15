@@ -1,10 +1,12 @@
-﻿using Application.Common.Enums;
+﻿using System.Security;
+using Application.Common.Enums;
 using Infrastructure.Persistence.Entities;
 using Infrastructure.Persistence.SQLServer.Contexts.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Tools.Constants;
 
 namespace Infrastructure.Persistence.SQLServer.Contexts
 {
@@ -20,6 +22,8 @@ namespace Infrastructure.Persistence.SQLServer.Contexts
             IdentityUserToken<Guid>
         >
     {
+        public DbSet<AppActionDao> AppActions { get; set; }
+        public DbSet<AppPermissionDao> AppPermissions { get; set; }
         public DbSet<CitizenDao> Citizens { get; set; }
         public DbSet<CountryDao> Countries { get; set; }
         public DbSet<ConstituencyDao> Constituencies { get; set; }
@@ -27,7 +31,7 @@ namespace Infrastructure.Persistence.SQLServer.Contexts
         public DbSet<FiliationDao> Filiations { get; set; }
         public DbSet<IdentityDocumentDao> IdentityDocuments { get; set; }
         public DbSet<RegistrationRequestDao> RegistrationRequests { get; set; }
-        public DbSet<VoterDao> Voters { get; set; }
+        public DbSet<Elector> Electors { get; set; }
         public DbSet<SupportingDocumentsDao> SupportingDocuments { get; set; }
         public DbSet<RefreshTokenDao> RefreshTokens { get; set; }
 
@@ -43,8 +47,8 @@ namespace Infrastructure.Persistence.SQLServer.Contexts
                 .HaveConversion<EnumToStringConverter<PersonTitle>>();
 
             configurationBuilder
-                .Properties<UserType>()
-                .HaveConversion<EnumToStringConverter<UserType>>();
+                .Properties<AppAction>()
+                .HaveConversion<EnumToStringConverter<AppAction>>();
             configurationBuilder
                 .Properties<TypeOfRelationship>()
                 .HaveConversion<EnumToStringConverter<TypeOfRelationship>>();
@@ -66,11 +70,25 @@ namespace Infrastructure.Persistence.SQLServer.Contexts
             configurationBuilder
                 .Properties<ConstituencyType>()
                 .HaveConversion<EnumToStringConverter<ConstituencyType>>();
+            configurationBuilder
+                .Properties<AppPermission>()
+                .HaveConversion<EnumToStringConverter<AppPermission>>();
+            configurationBuilder
+                .Properties<UserType>()
+                .HaveConversion<EnumToStringConverter<UserType>>();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<UserDao>().ToTable("Users");
+            builder.Entity<RoleDao>().ToTable("Roles");
+            builder.Entity<IdentityUserRole<Guid>>().ToTable("UserRoles");
+            builder.Entity<IdentityUserClaim<Guid>>().ToTable("UserClaims");
+            builder.Entity<IdentityUserLogin<Guid>>().ToTable("UserLogins");
+            builder.Entity<IdentityRoleClaim<Guid>>().ToTable("RoleClaims");
+            builder.Entity<IdentityUserToken<Guid>>().ToTable("UserTokens");
 
             builder.Entity<UserDao>().Property(e => e.UserName).HasMaxLength(100);
             builder.Entity<UserDao>().Property(e => e.FirstName).HasMaxLength(100);
@@ -103,6 +121,18 @@ namespace Infrastructure.Persistence.SQLServer.Contexts
                 .HasForeignKey(e => e.RoleId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder
+                .Entity<RoleDao>()
+                .HasMany(e => e.Actions)
+                .WithMany(e => e.Roles)
+                .UsingEntity(x => x.ToTable("RoleAction"));
+
+            builder
+                .Entity<AppActionDao>()
+                .HasMany(e => e.Permissions)
+                .WithMany(e => e.Actions)
+                .UsingEntity(j => j.ToTable("ActionPermission"));
 
             //Seeding
             builder.Entity<CountryDao>().HasData(CountriesData.Countries);

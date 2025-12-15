@@ -10,8 +10,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using NSwag;
 using NSwag.Generation.Processors.Security;
+using Pcea.Core.Net.Authorization;
+using Pcea.Core.Net.Authorization.Application.Interfaces.Services;
+using Pcea.Core.Net.Authorization.Web.Interfaces.Services;
+using WebApi.Common.Authorization;
 using WebApi.Common.Converters;
 using WebApi.Common.Filters;
+using WebApi.Common.Handlers;
 using WebApi.Services;
 
 namespace WebApi.Common
@@ -72,7 +77,7 @@ namespace WebApi.Common
             }
 
             services.ConfigureJWT(configuration);
-            //services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddScoped<ITokenService, TokenService>();
 
             var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
@@ -106,12 +111,15 @@ namespace WebApi.Common
                     o.JsonSerializerOptions.DefaultIgnoreCondition = options.DefaultIgnoreCondition;
                 });
 
-            //services.AddSingleton<IAuthorizationMiddlewareResultHandler, CustomAuthorizationResultHandler>();
-            //services.AddScoped<ITokenRoleClaimBuilder<long>, TokenRoleClaimBuilder>();
-            //services.AddScoped<ICurrentUserService, CurrentUserService>();
-            //services.AddScoped<ICurrentUserPermissionsProvider, CurrentUserService>();
-            //services.AddScoped<ICurrentUserEntityPermissionsProvider<long>, CurrentUserService>();
-            //services.AddApolloCoreNetAuthorization();
+            services.AddSingleton<
+                IAuthorizationMiddlewareResultHandler,
+                CustomAuthorizationResultHandler
+            >();
+            services.AddScoped<ITokenRoleClaimBuilder<long>, TokenRoleClaimBuilder>();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddScoped<ICurrentUserPermissionsProvider, CurrentUserService>();
+            services.AddScoped<ICurrentUserEntityPermissionsProvider<long>, CurrentUserService>();
+            services.AddPceaCoreNetAuthorization();
 
             return services;
         }

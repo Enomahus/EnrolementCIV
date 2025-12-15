@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common.Enums;
 using Infrastructure.Persistence.Entities;
 using Infrastructure.Persistence.SQLServer.Contexts;
 using Infrastructure.Persistence.SQLServer.Exceptions;
@@ -32,12 +28,12 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
             {
                 var userDao = new UserDao()
                 {
+                    Title = PersonTitle.Mr,
                     UserName = userName,
                     FirstName = firstName,
                     LastName = lastName,
                     Email = email,
                     PhoneNumber = phoneNumber,
-                    UserType = Application.Common.Enums.UserType.ElectionOfficer,
                 };
                 await SeedUserAsync(userDao, password, roles);
             }

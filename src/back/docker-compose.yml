@@ -1,6 +1,83 @@
 services:
   00-webapi:
+    container_name: enrolement.backend
     image: ${DOCKER_REGISTRY-}00webapi
     build:
       context: .
       dockerfile: src/Backend/00-WebApi/Dockerfile
+      args:
+        - CONFIGURATION=${CONFIGURATION:-Debug}
+    env_file:
+      - "./variables.dev.env"
+    ports:
+      - "40145:40145"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on:
+      enrolement.mail_catcher:
+        condition: service_started
+      enrolement.database.init:
+        condition: service_completed_successfully
+      enrolement.database:
+        condition: service_healthy
+      enrolement.jaeger:
+        condition: service_started
+
+  enrolement.jaeger:
+    container_name: enrolement.jaeger
+    image: jaegertracing/all-in-one:1.58
+    environment:
+      - METRICS_STORAGE_TYPE=prometheus
+      - PROMETHEUS_SERVER_URL=http://pcea.prometheus:9091
+      - PROMETHEUS_QUERY_SUPPORT_SPANMETRICS_CONNECTOR=${PROMETHEUS_QUERY_SUPPORT_SPANMETRICS_CONNECTOR:-true}
+      - PROMETHEUS_QUERY_NAMESPACE=${PROMETHEUS_QUERY_NAMESPACE:-}
+      - PROMETHEUS_QUERY_DURATION_UNIT=${PROMETHEUS_QUERY_DURATION_UNIT:-}
+      - PROMETHEUS_QUERY_NORMALIZE_CALLS=true
+      - PROMETHEUS_QUERY_NORMALIZE_DURATION=true
+    ports:
+      - "52100:16690"
+      - "5318:5318"
+      - "5319:5319"
+      
+  enrolement.database:
+    container_name: enrolement.database
+    image: "mcr.microsoft.com/mssql/server:2022-CU13-ubuntu-22.04"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=@ce!gouv225
+      - MSSQL_PID=Developer
+    ports:
+      - "43100:1433"
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P '@ce!gouv225' -d 'master' -Q 'select 1'
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  enrolement.database.init:
+    container_name: enrolement.database.init
+    image: 'mcr.microsoft.com/mssql/server:2022-CU13-ubuntu-22.04'
+    volumes:
+      - ../dbinit:/docker-entrypoint-initdb.d
+    depends_on:
+      enrolement.database:
+        condition: service_healthy
+    command: >
+      bash -c '
+      /opt/mssql-tools/bin/sqlcmd -S enreolement.database -U sa -P @ce!gouv225 -d master -i docker-entrypoint-initdb.d/init.sql;
+      echo "All done!";
+      '
+
+  enrolement.mail_catcher:
+    container_name: "enrolement.mail_catcher"
+    image: dockage/mailcatcher
+    ports:
+      - 1080:1080
+
+
+  
+     
+    

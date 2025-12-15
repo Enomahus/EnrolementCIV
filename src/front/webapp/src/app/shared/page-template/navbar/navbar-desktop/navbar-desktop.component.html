@@ -3,7 +3,12 @@
   <ul class="menu menu-left">
     <li class="menu-item" [routerLinkActive]="'active'">
       <a class="menu-item-interaction" routerLink="home">
-        {{ "navbar.home" | translate }}
+        {{ 'navbar.home' | translate }}
+      </a>
+    </li>
+    <li class="menu-item" [routerLinkActive]="'active'">
+      <a class="menu-item-interaction" routerLink="/login">
+        {{ 'navbar.registrationRequest' | translate }}
       </a>
     </li>
   </ul>
@@ -11,7 +16,12 @@
   <ul class="menu menu-right">
     <li class="menu-item" [routerLinkActive]="'active'">
       <a class="menu-item-interaction" routerLink="guide">
-        {{ "navbar.onlineGuide" | translate }}
+        {{ 'navbar.onlineGuide' | translate }}
+      </a>
+    </li>
+    <li class="menu-item" [routerLinkActive]="'active'">
+      <a class="menu-item-interaction testLine" routerLink="/register">
+        {{ 'navbar.createAccount' | translate }}
       </a>
     </li>
     <li class="lang-switcher">

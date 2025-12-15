@@ -7,6 +7,7 @@
     "no": "Non",
     "search": "Rechercher",
     "delete": "Supprimer",
+    "createAccount": "Créer un compte",
     "confirmation": "Confirmation",
     "quitWithoutSaving": "Quitter sans sauvegarder ?",
     "returnText": "Vous êtes sur le point de quitter cette page. Les informations saisies dans le formulaire risquent d'être perdues.\nVoulez-vous vraiment continuer ?",
@@ -25,7 +26,7 @@
     "projectTitle": "Enrôlement"
   },
   "footer": {
-    "appName": "Éco-modulation",
+    "appName": "Enrôlement",
     "copyright": "© 2025 Tous droits réservés.",
     "company": "Commission électorale indépendante"
   },
@@ -70,7 +71,16 @@
     "displayMenu": "Afficher le menu",
     "logout": "Se déconnecter",
     "home": "Accueil",
-    "onlineGuide": "Online guide",
+    "compliant": "Réclamation",
+    "registrationRequest": "Demande d'inscription",
+    "createAccount": "Créer un compte",
+    "onlineGuide": "Guide",
     "users": "Utilisateurs"
+  },
+  "register": {
+    "title": "Créer un compte"
+  },
+  "registrationRequests": {
+    "requestCollection": "Mes demandes"
   }
 }

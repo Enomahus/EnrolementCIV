@@ -1,0 +1,85 @@
+{
+  "global": {
+    "login": "Log in",
+    "save": "Save",
+    "cancel": "Cancel",
+    "yes": "Yes",
+    "no": "Nn",
+    "search": "Search",
+    "delete": "Delete",
+    "createAccount": "Crerate an account",
+    "confirmation": "Confirm",
+    "quitWithoutSaving": "Exit without saving ?",
+    "returnText": "Vous êtes sur le point de quitter cette page. Les informations saisies dans le formulaire risquent d'être perdues.\nVoulez-vous vraiment continuer ?",
+    "confirm": "Confirm",
+    "deleteConfirmation": "Confirmation de suppression",
+    "disableConfirmation": "Confirmation de désactivation",
+    "updateConfirmation": "Confirmation de mise à jour",
+    "back": "Back",
+    "details": "Details",
+    "edit": "Edit",
+    "notFound": "Resource not found",
+    "errorGetCurrentUser": "Erreur lors de la récupération de l'utilisateur courant.",
+    "missingData": "N/A",
+    "titleTemplate": "{{title}} | {{project}} | CEI",
+    "noTitleTemplate": "{{project}} | CEI",
+    "projectTitle": "Enrolment"
+  },
+  "footer": {
+    "appName": "Enrolment",
+    "copyright": "© 2025 All rights reserved.",
+    "company": "Independent Electoral Commission"
+  },
+  "forgotPassword": {
+    "email": "Adresse mail",
+    "forgotActionButton": "Recevoir le mail de réinitialisation",
+    "mailAlreadySendButton": "Mail envoyé !",
+    "returnToLogin": "Retour à la page de connexion",
+    "success": "Mail de réinitialisation envoyé si un compte existe avec cet email.",
+    "placeholder": "Entrez votre email"
+  },
+  "formsError": {
+    "emailInvalid": "L'email n'est pas au bon format",
+    "max": "La valeur doit être inférieure ou égale à {{max}}",
+    "maxAttachments": "Vous ne pouvez pas charger plus de {{max}} pièces jointes",
+    "min": "La valeur doit être supérieure ou égale à {{min}}",
+    "mobileInvalid": "Le mobile n'est pas au bon format",
+    "onlyNumberPav": "L'identifiant PAV doit contenir seulement des chiffres",
+    "passwordFormat": "Le mot de passe doit contenir entre 8 et 24 caractères et avoir au moins une lettre minuscule, une lettre majuscule et un chiffre",
+    "passwordMismatch": "Les mots de passe ne correspondent pas",
+    "phoneInvalid": "Le téléphone n'est pas au bon format",
+    "positiveDecimal": "La valeur doit être supérieure ou égale à 0",
+    "positiveInteger": "La valeur doit être un entier supérieur ou égal à 0",
+    "required": "Required field"
+  },
+  "login": {
+    "contactUs": "Contact us",
+    "forgotPassword": "I forgot my password",
+    "guestLoginFailed": "Guest access denied",
+    "loginFailed": "Incorrect password or username",
+    "password": "Password",
+    "passwordConfirm": "Confirm password",
+    "title": "Log in",
+    "username": "Username (email)"
+  },
+  "home": {
+    "title": "Home"
+  },
+  "navbar": {
+    "administration": "Administration",
+    "displayMenu": "Show menu",
+    "logout": "Log out",
+    "home": "Home",
+    "compliant": "Compliant",
+    "registrationRequest": "Registration request",
+    "createAccount": "Create an account",
+    "onlineGuide": "Online guide",
+    "users": "Users"
+  },
+  "register": {
+    "title": "Create an account"
+  },
+  "registrationRequests": {
+    "requestCollection": "My requests"
+  }
+}

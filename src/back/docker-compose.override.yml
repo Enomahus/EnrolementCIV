@@ -3,6 +3,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTPS_PORTS=40145
+    env_file:
+      - "./variables.dev.env"
     ports:
       - "40145:40145"
     volumes:
@@ -10,3 +12,4 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    

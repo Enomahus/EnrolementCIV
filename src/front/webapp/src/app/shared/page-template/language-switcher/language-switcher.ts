@@ -2,7 +2,6 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Language } from '@app/enums/language.enum';
 import { LanguageService } from '@app/services/language.service';
-import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,7 +12,6 @@ import { Observable } from 'rxjs';
 })
 export class LanguageSwitcher {
   private readonly languageService = inject(LanguageService);
-  private readonly translateService = inject(TranslateService);
   langItems: { code: Language; displayText: string; flag: string }[];
   currentLang$: Observable<Language>;
 

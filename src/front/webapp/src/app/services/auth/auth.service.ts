@@ -15,7 +15,9 @@ import {
   tap,
 } from 'rxjs';
 import { ApiBaseService } from '../api/api-base.service';
-import { ResultOfTokenResponse } from '../nswag/api-nswag-client';
+import { UserService } from '../api/user-api.service';
+import { CurrentUserService } from '../current-user.service';
+import { AppPermission, ResultOfTokenResponse } from '../nswag/api-nswag-client';
 
 const refreshTokenKey = 'refreshTokenKey';
 const impersonatorAccessTokenKey = 'impersonatorAccessTokenKey';
@@ -28,11 +30,11 @@ const currentUserKey = 'currentUserKey';
 export class AuthService extends ApiBaseService {
   private readonly accessToken$ = new BehaviorSubject<string | undefined>(undefined);
   private readonly refreshing$ = new BehaviorSubject<boolean>(false);
-  //private readonly permissions$ = new BehaviorSubject<AppPermission[] | undefined>(undefined);
+  private readonly permissions$ = new BehaviorSubject<AppPermission[] | undefined>(undefined);
 
   private readonly router = inject(Router);
-  //private readonly currentUserService = inject(CurrentUserService);
-  //private readonly userApiService = inject(UserService);
+  private readonly currentUserService = inject(CurrentUserService);
+  private readonly userApiService = inject(UserService);
 
   constructor() {
     super();
@@ -88,13 +90,13 @@ export class AuthService extends ApiBaseService {
     return localStorage.getItem(impersonatorRefreshTokenKey);
   }
 
-  //   getPermissions(): Observable<AppPermission[]> {
-  //     return this.permissions$.pipe(filter((p) => !!p)) as Observable<AppPermission[]>;
-  //   }
+  getPermissions(): Observable<AppPermission[]> {
+    return this.permissions$.pipe(filter((p) => !!p)) as Observable<AppPermission[]>;
+  }
 
   logout(): void {
     this.accessToken$.next(undefined);
-    //this.permissions$.next(undefined);
+    this.permissions$.next(undefined);
     localStorage.removeItem(refreshTokenKey);
     localStorage.removeItem(currentUserKey);
     localStorage.removeItem(impersonatorAccessTokenKey);
@@ -162,7 +164,7 @@ export class AuthService extends ApiBaseService {
   private async fetchPermissions(): Promise<void> {
     const currentUser = await firstValueFrom(this.userApiService.getCurrentUser());
     const permissions = currentUser.permissions ?? [];
-    //this.permissions$.next(permissions);
+    this.permissions$.next(permissions);
   }
 
   private setRefreshToken(token: string | undefined): void {

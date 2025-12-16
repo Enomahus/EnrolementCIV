@@ -77,9 +77,22 @@
     "users": "Users"
   },
   "register": {
-    "title": "Create an account"
+    "title": "Create an account",
+    "haveAccount": "Dou you already have an account ?",
+    "signIn": "Sign in !",
+    "lastName": "Lastname",
+    "firstName": "Firstname",
+    "phoneNumber": "Phone number",
+    "civility": "Civility",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "role": "Activity"
   },
   "registrationRequests": {
     "requestCollection": "My requests"
+  },
+  "phoneNumberInput": {
+    "phoneNumber": "Phone number"
   }
 }

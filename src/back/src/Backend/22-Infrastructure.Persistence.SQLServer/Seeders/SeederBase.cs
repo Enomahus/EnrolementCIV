@@ -28,7 +28,7 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
             {
                 var userDao = new UserDao()
                 {
-                    Title = PersonTitle.Mr,
+                    Civility = PersonTitle.Mr,
                     UserName = userName,
                     FirstName = firstName,
                     LastName = lastName,

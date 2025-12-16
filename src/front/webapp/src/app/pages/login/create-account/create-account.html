@@ -1,1 +1,158 @@
-<p>create-account works!</p>
+<div class="account-container">
+  <div class="account-title">
+    <h4>Je crée mon compte</h4>
+  </div>
+  <form [formGroup]="form" (ngsubmit)="submit()" novalidate class="form-grid">
+    <!-- Civilité -->
+    <div class="input-block">
+      <div class="label-container">
+        <span class="label">{{ 'register.civility' | translate }}</span>
+      </div>
+      <div class="options-container">
+        <label for="mr" class="radio">
+          <input id="mr" type="radio" formControlName="civility" value="mr" />
+          Monsieur
+        </label>
+        <label for="mrs" class="radio">
+          <input id="mrs" type="radio" formControlName="civility" value="mrs" />
+          Madame
+        </label>
+        <label for="ms" class="radio">
+          <input id="ms" type="radio" formControlName="civility" value="ms" />
+          Mademoiselle
+        </label>
+      </div>
+      @if (showRequiredError('civility')) {
+        <div class="form-error">{{ 'formsError.required' | translate }}</div>
+      }
+    </div>
+
+    <!-- Nom / Prénoms -->
+    <div class="inputs-container">
+      <div class="input-block required">
+        <label for="lastName">{{ 'register.lastName' | translate }}</label>
+        <input
+          id="lastName"
+          type="text"
+          formControlName="lastName"
+          (blur)="touchIfEmpty('lastName')"
+        />
+        @if (showRequiredError('lastName')) {
+          <div class="form-error">{{ 'formsError.required' | translate }}</div>
+        }
+      </div>
+      <div class="input-block required">
+        <label for="firstname">{{ 'register.firstName' | translate }}</label>
+        <input
+          id="firstName"
+          type="text"
+          formControlName="firstName"
+          (blur)="touchIfEmpty('firstName')"
+        />
+        @if (showRequiredError('firstName')) {
+          <div class="form-error">{{ 'formsError.required' | translate }}</div>
+        }
+      </div>
+    </div>
+
+    <!-- Indicatif / Téléphone / Email -->
+    <div class="inputs-container">
+      <div class="input-block required">
+        <label for="dialCode">Indicatif</label>
+        <input
+          id="dialCode"
+          type="text"
+          formControlName="dialCode"
+          (blur)="touchIfEmpty('dialCode')"
+        />
+        @if (showRequiredError('dialCode')) {
+          <div class="form-error">{{ 'formsError.required' | translate }}</div>
+        }
+      </div>
+      <div class="input-block required">
+        <!-- <label for="phoneNumber">{{ 'register.phoneNumber' | translate }}</label>
+        <input
+          id="phoneNumber"
+          type="tel"
+          formControlName="phoneNumber"
+          (blur)="touchIfEmpty('phoneNumber')"
+        /> -->
+        <app-phone-number-input (phoneChange)="onPhoneChange($event)"></app-phone-number-input>
+        @if (showRequiredError('phoneNumber')) {
+          <div class="form-error">{{ 'formsError.required' | translate }}</div>
+        }
+      </div>
+      <div class="input-block required">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" (blur)="touchIfEmpty('email')" />
+        @if (showRequiredError('email')) {
+          <div class="form-error">{{ 'formsError.required' | translate }}</div>
+        }
+        @if (showEmailError()) {
+          <div class="form-error">{{ 'formsError.emailInvalid' | translate }}</div>
+        }
+      </div>
+    </div>
+
+    <!-- Mot de passe / Confirmation -->
+    <div class="inputs-container">
+      <div class="input-block required">
+        <label for="password">{{ 'register.password' | translate }}</label>
+        <div class="password-container">
+          <input
+            id="password"
+            [type]="showPassword() ? 'text' : 'password'"
+            formControlName="password"
+            (blur)="touchIfEmpty('password')"
+          />
+          <button type="button" class="toogle-password" (click)="showPassword.set(!showPassword())">
+            <i [class]="showPassword() ? 'ph ph-eye' : 'ph ph-eye-slash'"></i>
+          </button>
+        </div>
+        <!-- <small class="hint">8 caractères : 1 majuscule, 1 minuscule, 1 caractère spécial</small> -->
+        @if (showRequiredError('password')) {
+          <div class="form-error">{{ 'formsError.required' | translate }}</div>
+        }
+        @if (showPasswordComplexity()) {
+          <div class="form-error">{{ 'formsError.passwordFormat' | translate }}</div>
+        }
+      </div>
+
+      <div class="input-block required">
+        <label for="confirmPassword">{{ 'register.confirmPassword' | translate }}</label>
+        <div class="password-container">
+          <input
+            id="confirmPassword"
+            [type]="showConfirm() ? 'text' : 'password'"
+            formControlName="confirmPassword"
+            (blur)="touchIfEmpty('confirmPassword')"
+          />
+          <button type="button" class="toogle-password" (click)="showConfirm.set(!showConfirm())">
+            <i [class]="showConfirm() ? 'ph ph-eye' : 'ph ph-eye-slash'"></i>
+          </button>
+        </div>
+        @if (showRequiredError('confirmPassword')) {
+          <div class="form-error">{{ 'formsError.required' | translate }}</div>
+        }
+      </div>
+    </div>
+    @if (showPasswordsDontMatch()) {
+      <div class="form-error">{{ 'formsError.passwordMismatch' | translate }}</div>
+    }
+
+    <app-sticky-buttons-container>
+      <!-- Bouton -->
+      <button class="btn primary" type="submit" [disabled]="disableSubmit()">
+        {{ 'global.save' | translate }}
+      </button>
+      <button class="btn outline outline-primary" type="button">
+        {{ 'global.cancel' | translate }}
+      </button>
+    </app-sticky-buttons-container>
+
+    <div class="signin">
+      {{ 'register.haveAccount' | translate }}
+      <a routerLink="login">{{ 'register.signIn' | translate }}</a>
+    </div>
+  </form>
+</div>

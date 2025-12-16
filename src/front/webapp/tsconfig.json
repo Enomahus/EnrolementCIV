@@ -8,7 +8,7 @@
       "@app/*": ["src/app/*"],
       "@shared/*": ["src/app/shared/*"],
       "@services/*": ["src/app/services/*"],
-      "@constant/*": ["src/app/constant/*"],
+      "@constants/*": ["src/app/constants/*"],
     },
     "outDir": "./dist/out-tsc",
     "strict": true,

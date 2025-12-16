@@ -24,7 +24,7 @@ namespace Application.Features.Users.GetCurrentUser
             //return new GetCurrentUserResponse
             //{
             //    Id = userDao.Id,
-            //    Title = userDao.Title,
+            //    Civility = userDao.Civility,
             //    FirstName = userDao.FirstName,
             //    LastName = userDao.LastName,
             //    FullName = fullName,

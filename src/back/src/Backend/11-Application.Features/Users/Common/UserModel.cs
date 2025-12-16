@@ -6,7 +6,7 @@ namespace Application.Features.Users.Common
 {
     public class UserModel
     {
-        public PersonTitle Title { get; set; }
+        public PersonTitle Civility { get; set; }
         public string? FirstName { get; set; }
 
         public string? LastName { get; set; }
@@ -33,7 +33,7 @@ namespace Application.Features.Users.Common
         {
             var isAdmin =
                 dao.UserRoles?.Any(ur => ur.Role.Name == AppConstants.SuperAdminRole) ?? false;
-
+            model.Civility = dao.Civility;
             model.FirstName = dao.FirstName;
             model.LastName = dao.LastName;
             model.FullName = $"{dao.FirstName} {dao.LastName}".Trim();

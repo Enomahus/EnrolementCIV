@@ -55,7 +55,7 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
                 Tuple.Create<UserDao, List<string>>(
                     new()
                     {
-                        Title = PersonTitle.Mr,
+                        Civility = PersonTitle.Mr,
                         UserName = "admin",
                         FirstName = "John",
                         LastName = "Doe",
@@ -67,7 +67,7 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
                 Tuple.Create<UserDao, List<string>>(
                     new()
                     {
-                        Title = PersonTitle.Mr,
+                        Civility = PersonTitle.Mr,
                         UserName = "user1",
                         FirstName = "Sam",
                         LastName = "Gamegie",
@@ -79,7 +79,7 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
                 Tuple.Create<UserDao, List<string>>(
                     new()
                     {
-                        Title = PersonTitle.Mr,
+                        Civility = PersonTitle.Mr,
                         UserName = "user2",
                         FirstName = "Bilbo",
                         LastName = "Baggins",
@@ -91,7 +91,7 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
                 Tuple.Create<UserDao, List<string>>(
                     new()
                     {
-                        Title = PersonTitle.Mrs,
+                        Civility = PersonTitle.Mrs,
                         UserName = "user3",
                         FirstName = "Merry",
                         LastName = "Brandybuck",
@@ -103,7 +103,7 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
                 Tuple.Create<UserDao, List<string>>(
                     new()
                     {
-                        Title = PersonTitle.Mr,
+                        Civility = PersonTitle.Mr,
                         UserName = "user4",
                         FirstName = "Arwen",
                         LastName = "Evenstar",
@@ -115,7 +115,7 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
                 Tuple.Create<UserDao, List<string>>(
                     new()
                     {
-                        Title = PersonTitle.Mr,
+                        Civility = PersonTitle.Mr,
                         UserName = "user5",
                         FirstName = "Harvey",
                         LastName = "Spector",
@@ -127,7 +127,7 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
                 Tuple.Create<UserDao, List<string>>(
                     new()
                     {
-                        Title = PersonTitle.Mrs,
+                        Civility = PersonTitle.Mrs,
                         UserName = "user6",
                         FirstName = "Julie",
                         LastName = "Dupuy",
@@ -140,7 +140,7 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
                 Tuple.Create<UserDao, List<string>>(
                     new()
                     {
-                        Title = PersonTitle.Mr,
+                        Civility = PersonTitle.Mr,
                         UserName = "user7",
                         FirstName = "Bolan",
                         LastName = "Marck",

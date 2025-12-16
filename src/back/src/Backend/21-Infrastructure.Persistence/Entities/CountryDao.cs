@@ -10,6 +10,7 @@ namespace Infrastructure.Persistence.Entities
 
         [MaxLength(100)]
         public required string Name { get; set; }
+        public required string DialCode { get; set; }
         public virtual ICollection<CoordinateDao> Coordinates { get; set; } = [];
     }
 }

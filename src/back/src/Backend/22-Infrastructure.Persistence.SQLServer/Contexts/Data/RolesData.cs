@@ -16,6 +16,7 @@ namespace Infrastructure.Persistence.SQLServer.Contexts.Data
                     AppPermission.CreateUser,
                     AppPermission.UpdateUser,
                     AppPermission.DeleteUser,
+                    AppPermission.GetAllRoles,
                 ]
             },
             {
@@ -70,7 +71,11 @@ namespace Infrastructure.Persistence.SQLServer.Contexts.Data
             },
             {
                 AppConstants.DataEntryOperatorRole,
-                [AppAction.RegistrationRequestCreation, AppAction.RegistrationRequestAdministration]
+                [
+                    AppAction.RegistrationRequestCreation,
+                    AppAction.RegistrationRequestAdministration,
+                    AppAction.RegistrationRequestConsultation,
+                ]
             },
             {
                 AppConstants.ElectorRole,

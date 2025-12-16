@@ -50,7 +50,7 @@ namespace Application.Features.Users.Common
                         .WithMessage(ValidationErrorCode.Unique.ToString());
                 });
 
-            RuleFor(v => v.Title).NotNull().WithMessage(ValidationErrorCode.Required.ToString());
+            RuleFor(v => v.Civility).NotNull().WithMessage(ValidationErrorCode.Required.ToString());
 
             if (validateRoles)
             {

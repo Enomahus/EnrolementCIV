@@ -20,6 +20,7 @@
         CreateUser,
         DeleteUser,
         GetAllUsers,
+        GetAllRoles,
         GetCurrentUser,
         GetUser,
         GetUsers,

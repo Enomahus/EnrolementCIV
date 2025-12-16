@@ -1,0 +1,26 @@
+<div class="phone-input">
+  <label for="phoneNumber" class="phone-input__label">{{
+    'phoneNumberInput.phoneNumber' | translate
+  }}</label>
+
+  <div class="phone-input__controls">
+    <select
+      id="phoneNumber"
+      class="phone-input__select"
+      [ngModel]="selectedDialCode()"
+      (ngModelChange)="onCountryChange($event)"
+    >
+      @for (country of countries(); track country.dialCode) {
+        <option [value]="country.dialCode">({{ country.dialCode }}) {{ country.name }}</option>
+      } @empty {
+        <option disabled>Aucun pays disponible</option>
+      }
+    </select>
+    <input
+      type="tel"
+      class="phone-input__field"
+      [ngModel]="localNumber()"
+      (ngModelChange)="onNumberChange($event)"
+    />
+  </div>
+</div>

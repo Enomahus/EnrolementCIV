@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Application.Common.Enums;
 using Infrastructure.Persistence.Common;
 
@@ -38,10 +39,15 @@ namespace Infrastructure.Persistence.Entities
         public DateTimeOffset CreatedAt { get; set; }
         public CoordinateDao Coordinate { get; set; } = new();
         public IdentityDocumentDao IdentityDocument { get; set; } = new();
-        public virtual ICollection<Elector> Voters { get; set; } = [];
+
+        // Relation un-à-un vers l'électeur
+        public ElectorDao? Elector { get; set; }
         public virtual ICollection<RegistrationRequestDao> RegistrationRequests { get; set; } = [];
 
-        // Navigation : Filiation
-        public ICollection<FiliationDao> Filiations { get; set; } = [];
+        [InverseProperty(nameof(FiliationDao.Citoyen))]
+        public virtual ICollection<FiliationDao> FiliationsAsSubject { get; set; } = [];
+
+        [InverseProperty(nameof(FiliationDao.Relatif))]
+        public virtual ICollection<FiliationDao> FiliationsAsRelative { get; set; } = [];
     }
 }

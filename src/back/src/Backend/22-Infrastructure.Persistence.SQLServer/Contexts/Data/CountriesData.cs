@@ -66,7 +66,7 @@ namespace Infrastructure.Persistence.SQLServer.Contexts.Data
                 {
                     Id = 8,
                     CodeIso = "AI",
-                    DialCode = "+1264",
+                    DialCode = "+1-264",
                     Name = "Anguilla",
                     Coordinates = [],
                 },
@@ -82,7 +82,7 @@ namespace Infrastructure.Persistence.SQLServer.Contexts.Data
                 {
                     Id = 10,
                     CodeIso = "AG",
-                    DialCode = "+1268",
+                    DialCode = "+1-268",
                     Name = "Antigua-et-Barbuda",
                     Coordinates = [],
                 },
@@ -146,7 +146,7 @@ namespace Infrastructure.Persistence.SQLServer.Contexts.Data
                 {
                     Id = 18,
                     CodeIso = "BS",
-                    DialCode = "+1242",
+                    DialCode = "+1-242",
                     Name = "Bahamas",
                     Coordinates = [],
                 },
@@ -170,7 +170,7 @@ namespace Infrastructure.Persistence.SQLServer.Contexts.Data
                 {
                     Id = 21,
                     CodeIso = "BB",
-                    DialCode = "+1246",
+                    DialCode = "+1-246",
                     Name = "Barbade",
                     Coordinates = [],
                 },
@@ -202,7 +202,7 @@ namespace Infrastructure.Persistence.SQLServer.Contexts.Data
                 {
                     Id = 25,
                     CodeIso = "BM",
-                    DialCode = "+1441",
+                    DialCode = "+1-441",
                     Name = "Bermudes",
                     Coordinates = [],
                 },
@@ -442,7 +442,7 @@ namespace Infrastructure.Persistence.SQLServer.Contexts.Data
                 {
                     Id = 55,
                     CodeIso = "DM",
-                    DialCode = "+1467",
+                    DialCode = "+1-467",
                     Name = "Dominique",
                     Coordinates = [],
                 },
@@ -570,7 +570,7 @@ namespace Infrastructure.Persistence.SQLServer.Contexts.Data
                 {
                     Id = 71,
                     CodeIso = "GD",
-                    DialCode = "+1473",
+                    DialCode = "+1-473",
                     Name = "Grenade",
                     Coordinates = [],
                 },
@@ -706,7 +706,7 @@ namespace Infrastructure.Persistence.SQLServer.Contexts.Data
                 {
                     Id = 88,
                     CodeIso = "JM",
-                    DialCode = "+1876",
+                    DialCode = "+1-876",
                     Name = "Jamaïque",
                     Coordinates = [],
                 },
@@ -1122,7 +1122,7 @@ namespace Infrastructure.Persistence.SQLServer.Contexts.Data
                 {
                     Id = 140,
                     CodeIso = "PE",
-                    DialCode = "+63",
+                    DialCode = "+51",
                     Name = "Pérou",
                     Coordinates = [],
                 },

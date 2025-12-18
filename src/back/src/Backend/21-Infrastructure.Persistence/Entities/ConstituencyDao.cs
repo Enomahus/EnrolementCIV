@@ -15,6 +15,6 @@ namespace Infrastructure.Persistence.Entities
         [ForeignKey(nameof(ParentId))]
         public ConstituencyDao ConstituencyParent { get; set; }
 
-        public virtual ICollection<Elector> Voters { get; set; } = [];
+        public virtual ICollection<ElectorDao> Voters { get; set; } = [];
     }
 }

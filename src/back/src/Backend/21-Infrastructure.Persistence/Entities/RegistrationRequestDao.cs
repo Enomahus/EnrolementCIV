@@ -1,4 +1,6 @@
-﻿using Application.Common.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Application.Common.Enums;
 using Infrastructure.Persistence.Common;
 
 namespace Infrastructure.Persistence.Entities
@@ -6,9 +8,24 @@ namespace Infrastructure.Persistence.Entities
     //Demande d'inscription
     public class RegistrationRequestDao : EntityBaseDao<Guid>
     {
+        [MaxLength(25)]
+        [Required]
+        public string Reference { get; set; }
         public DateTimeOffset SoumissionDate { get; set; }
         public RegistrationStatus Status { get; set; }
         public string ReasonForRejection { get; set; }
+        public Guid? AuthorId { get; set; }
+
+        [ForeignKey(nameof(AuthorId))]
+        public UserDao Author { get; set; }
+        public Guid? LastUpdaterId { get; set; }
+
+        [ForeignKey(nameof(LastUpdaterId))]
+        public UserDao LastUpdater { get; set; }
+        public Guid? CitizenId { get; set; }
+
+        [ForeignKey(nameof(CitizenId))]
+        public CitizenDao Citizen { get; set; }
         public virtual ICollection<SupportingDocumentsDao> SupportingDocuments { get; set; } = [];
     }
 }

@@ -11,10 +11,6 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './phone-number-input.scss',
 })
 export class PhoneNumberInput implements OnInit {
-  // @Input({ required: true }) control!: FormControl;
-  // @Input({ required: true }) labelForId!: string;
-  // @Input() readonly = false;
-
   private readonly countriesService = inject(CountryService);
   selectedDialCode = signal<string>('+225');
   localNumber = signal<string>('');
@@ -23,7 +19,10 @@ export class PhoneNumberInput implements OnInit {
   @Output() phoneChange = new EventEmitter<string>();
 
   ngOnInit(): void {
-    this.countriesService.getCountries().subscribe((res) => this.countries.set(res));
+    this.countriesService.getCountries().subscribe((res) => {
+      console.log(res);
+      this.countries.set([...res]);
+    });
   }
 
   onCountryChange(event: Event): void {

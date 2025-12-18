@@ -6,8 +6,6 @@ namespace Infrastructure.Persistence.Entities
 {
     public class RoleDao : IdentityRole<Guid>, IRole
     {
-        public string? Description { get; set; }
-
         public RoleDao() { }
 
         public RoleDao(string roleName)

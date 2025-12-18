@@ -75,7 +75,7 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
             );
 
             var deleteSqlCommand =
-                $"DELETE FROM AppPermission WHERE PermissionCode NOT IN ({existingPermissionsArray})";
+                $"DELETE FROM AppPermissions WHERE PermissionCode NOT IN ({existingPermissionsArray})";
             if (_context.Database.IsRelational())
             {
                 await _context.Database.ExecuteSqlRawAsync(deleteSqlCommand);

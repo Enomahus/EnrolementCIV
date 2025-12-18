@@ -1,12 +1,10 @@
-﻿using System.Security;
-using Application.Common.Enums;
+﻿using Application.Common.Enums;
 using Infrastructure.Persistence.Entities;
 using Infrastructure.Persistence.SQLServer.Contexts.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Tools.Constants;
 
 namespace Infrastructure.Persistence.SQLServer.Contexts
 {
@@ -31,7 +29,7 @@ namespace Infrastructure.Persistence.SQLServer.Contexts
         public DbSet<FiliationDao> Filiations { get; set; }
         public DbSet<IdentityDocumentDao> IdentityDocuments { get; set; }
         public DbSet<RegistrationRequestDao> RegistrationRequests { get; set; }
-        public DbSet<Elector> Electors { get; set; }
+        public DbSet<ElectorDao> Electors { get; set; }
         public DbSet<SupportingDocumentsDao> SupportingDocuments { get; set; }
         public DbSet<RefreshTokenDao> RefreshTokens { get; set; }
 
@@ -84,7 +82,7 @@ namespace Infrastructure.Persistence.SQLServer.Contexts
 
             builder.Entity<UserDao>().ToTable("Users");
             builder.Entity<RoleDao>().ToTable("Roles");
-            builder.Entity<IdentityUserRole<Guid>>().ToTable("UserRoles");
+            builder.Entity<UserRoleDao>().ToTable("UserRoles");
             builder.Entity<IdentityUserClaim<Guid>>().ToTable("UserClaims");
             builder.Entity<IdentityUserLogin<Guid>>().ToTable("UserLogins");
             builder.Entity<IdentityRoleClaim<Guid>>().ToTable("RoleClaims");
@@ -133,6 +131,55 @@ namespace Infrastructure.Persistence.SQLServer.Contexts
                 .HasMany(e => e.Permissions)
                 .WithMany(e => e.Actions)
                 .UsingEntity(j => j.ToTable("ActionPermission"));
+
+            builder
+                .Entity<RegistrationRequestDao>()
+                .HasOne(l => l.Author)
+                .WithMany(a => a.CreatedRegistrationRequests)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<RegistrationRequestDao>()
+                .HasOne(l => l.LastUpdater)
+                .WithMany(a => a.UpdatedRegistrationRequests)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ElectorDao>().HasIndex(e => e.ElectorNumber).IsUnique();
+
+            builder
+                .Entity<ElectorDao>()
+                .HasOne(e => e.Citizen)
+                .WithOne(c => c.Elector)
+                .HasForeignKey<ElectorDao>(e => e.CitizenId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Filiation : deux relations vers Citizen, bien distinctes
+            builder.Entity<FiliationDao>(entity =>
+            {
+                entity
+                    .HasOne(f => f.Citoyen)
+                    .WithMany(c => c.FiliationsAsSubject)
+                    .HasForeignKey(f => f.CitoyenId)
+                    .OnDelete(DeleteBehavior.Restrict); // éviter cascades cycliques
+
+                entity
+                    .HasOne(f => f.Relatif)
+                    .WithMany(c => c.FiliationsAsRelative)
+                    .HasForeignKey(f => f.RelatifId)
+                    .OnDelete(DeleteBehavior.Restrict); // idem
+            });
+
+            // (Fortement conseillé) Index/contrainte d’unicité logique pour éviter doublons
+            builder
+                .Entity<FiliationDao>()
+                .HasIndex(f => new
+                {
+                    f.CitoyenId,
+                    f.RelatifId,
+                    f.TypeLien,
+                })
+                .IsUnique();
 
             //Seeding
             builder.Entity<CountryDao>().HasData(CountriesData.Countries);

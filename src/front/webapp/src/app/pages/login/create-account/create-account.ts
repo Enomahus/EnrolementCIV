@@ -16,19 +16,6 @@ import { PhoneNumberInput } from '@app/shared/phone-number-input/phone-number-in
 import { StickyButtonsContainerComponent } from '@app/shared/sticky-buttons-container/sticky-buttons-container.component';
 import { TranslateModule } from '@ngx-translate/core';
 
-// function passwordComplexity(): ValidatorFn {
-//   // 8+ chars, 1 upper, 1 lower, 1 special (adapte si besoin)
-//   const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9]).{8,}$/;
-//   return (control: AbstractControl) =>
-//     regex.test(control.value || '') ? null : { passwordComplexity: true };
-// }
-
-// function matchPassword(group: FormGroup): ValidationErrors | null {
-//   const pwd = group.get('password')?.value;
-//   const confirm = group.get('confirmPassword')?.value;
-//   return pwd === confirm ? null : { passwordsDontMatch: true };
-// }
-
 @Component({
   selector: 'app-create-account',
   imports: [

@@ -25,6 +25,29 @@
     "noTitleTemplate": "{{project}} | CEI",
     "projectTitle": "Enrôlement"
   },
+  "errors": {
+    "backendCodes": {
+      "accessRights": "Droits insuffisants",
+      "notFound": "L'élément demandé n'existe pas",
+      "validation": "",
+      "validationCodes": {
+        "CountryMustExist": "Le pays n'a pas été trouvé.",
+        "CriteriaLinked": "Le critère ne peut pas être supprimé car des éléments lui sont liés. Vous pouvez cependant le désactiver.",
+        "CriteriaMustExist": "Le critère n'a pas été trouvé.",
+        "InvalidEmail": "Le champ {{field}} n'est pas un email valide.",
+        "InvalidPassword": "Le mot de passe est invalide.",
+        "InvalidPostcode": "Le code postal est invalide.",
+        "MaxLength": "La valeur saisie dans le champ {{field}} est trop longue.",
+        "PositiveNumber": "La valeur saisie dans le champ {{field}} doit être positive.",
+        "RequesterMustExist": "Le demandeur n'a pas été trouvé.",
+        "Required": "Le champ {{field}} est requis.",
+        "Unique": "La valeur saisie dans le champ {{field}} existe déjà.",
+        "UserMustExist": "L'utilisateur n'a pas été trouvé."
+      }
+    },
+    "gridError": "Une erreur est survenue lors de la récupération des données de la grille",
+    "serverError": "Erreur serveur"
+  },
   "footer": {
     "appName": "Enrôlement",
     "copyright": "© 2025 Tous droits réservés.",

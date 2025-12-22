@@ -68,7 +68,7 @@ services:
         condition: service_healthy
     command: >
       bash -c '
-      /opt/mssql-tools/bin/sqlcmd -S enreolement.database -U sa -P @ce!gouv225 -d master -i docker-entrypoint-initdb.d/init.sql;
+      /opt/mssql-tools/bin/sqlcmd -S enrolement.database -U sa -P @ce!gouv225 -d master -i docker-entrypoint-initdb.d/init.sql;
       echo "All done!";
       '
 

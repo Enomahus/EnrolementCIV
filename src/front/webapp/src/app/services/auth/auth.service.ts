@@ -141,20 +141,26 @@ export class AuthService extends ApiBaseService {
     if (result?.data?.accessToken) {
       const payload = jwtDecode<{
         name: string | undefined;
+        email: string | undefined;
         lastName: string | undefined;
         firstName: string | undefined;
+        sub: string | undefined;
         role: string | string[] | undefined;
       }>(result?.data?.accessToken);
 
       const name = payload.name;
+      const email = payload.email;
+      const id = payload.sub;
 
-      if (!name) {
+      if (!name || !email || !id) {
         this.logout();
         return;
       }
       await this.fetchPermissions();
       this.currentUserService.changeCurrentUserName(`${payload.firstName} ${payload.lastName}`);
       localStorage.setItem(currentUserKey, name);
+      localStorage.setItem(currentUserKey, email);
+      localStorage.setItem(currentUserKey, id);
     } else {
       await this.fetchPermissions();
     }

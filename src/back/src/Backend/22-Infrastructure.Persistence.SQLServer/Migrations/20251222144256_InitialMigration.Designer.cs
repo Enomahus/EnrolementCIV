@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Persistence.SQLServer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251218103635_InitialMigration")]
+    [Migration("20251222144256_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -297,7 +297,7 @@ namespace Infrastructure.Persistence.SQLServer.Migrations
                         {
                             Id = 8L,
                             CodeIso = "AI",
-                            DialCode = "+1264",
+                            DialCode = "+1-264",
                             Name = "Anguilla"
                         },
                         new
@@ -311,7 +311,7 @@ namespace Infrastructure.Persistence.SQLServer.Migrations
                         {
                             Id = 10L,
                             CodeIso = "AG",
-                            DialCode = "+1268",
+                            DialCode = "+1-268",
                             Name = "Antigua-et-Barbuda"
                         },
                         new
@@ -367,7 +367,7 @@ namespace Infrastructure.Persistence.SQLServer.Migrations
                         {
                             Id = 18L,
                             CodeIso = "BS",
-                            DialCode = "+1242",
+                            DialCode = "+1-242",
                             Name = "Bahamas"
                         },
                         new
@@ -388,7 +388,7 @@ namespace Infrastructure.Persistence.SQLServer.Migrations
                         {
                             Id = 21L,
                             CodeIso = "BB",
-                            DialCode = "+1246",
+                            DialCode = "+1-246",
                             Name = "Barbade"
                         },
                         new
@@ -416,7 +416,7 @@ namespace Infrastructure.Persistence.SQLServer.Migrations
                         {
                             Id = 25L,
                             CodeIso = "BM",
-                            DialCode = "+1441",
+                            DialCode = "+1-441",
                             Name = "Bermudes"
                         },
                         new
@@ -626,7 +626,7 @@ namespace Infrastructure.Persistence.SQLServer.Migrations
                         {
                             Id = 55L,
                             CodeIso = "DM",
-                            DialCode = "+1467",
+                            DialCode = "+1-467",
                             Name = "Dominique"
                         },
                         new
@@ -738,7 +738,7 @@ namespace Infrastructure.Persistence.SQLServer.Migrations
                         {
                             Id = 71L,
                             CodeIso = "GD",
-                            DialCode = "+1473",
+                            DialCode = "+1-473",
                             Name = "Grenade"
                         },
                         new
@@ -857,7 +857,7 @@ namespace Infrastructure.Persistence.SQLServer.Migrations
                         {
                             Id = 88L,
                             CodeIso = "JM",
-                            DialCode = "+1876",
+                            DialCode = "+1-876",
                             Name = "Jamaïque"
                         },
                         new
@@ -1221,7 +1221,7 @@ namespace Infrastructure.Persistence.SQLServer.Migrations
                         {
                             Id = 140L,
                             CodeIso = "PE",
-                            DialCode = "+63",
+                            DialCode = "+51",
                             Name = "Pérou"
                         },
                         new

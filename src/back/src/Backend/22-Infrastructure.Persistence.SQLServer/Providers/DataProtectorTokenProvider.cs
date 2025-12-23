@@ -25,10 +25,11 @@ namespace Infrastructure.Persistence.SQLServer.Providers
             ILogger<DataProtectorTokenProvider<TUser>> logger
         )
         {
-            if (dataProtectionProvider == null)
-            {
-                throw new ArgumentNullException(nameof(dataProtectionProvider));
-            }
+            //if (dataProtectionProvider == null)
+            //{
+            //    throw new ArgumentNullException(nameof(dataProtectionProvider));
+            //}
+            ArgumentNullException.ThrowIfNull(dataProtectionProvider);
 
             Options = options?.Value ?? new DataProtectionTokenProviderOptions();
 
@@ -87,10 +88,12 @@ namespace Infrastructure.Persistence.SQLServer.Providers
             TUser user
         )
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
+            //if (user == null)
+            //{
+            //    throw new ArgumentNullException(nameof(user));
+            //}
+            ArgumentNullException.ThrowIfNull(user);
+
             var ms = new MemoryStream();
             var userId = await manager.GetUserIdAsync(user);
             using (var writer = ms.CreateWriter())

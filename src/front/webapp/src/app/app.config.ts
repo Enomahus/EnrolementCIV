@@ -1,4 +1,6 @@
+import { registerLocaleData } from '@angular/common';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import localeFr from '@angular/common/locales/fr';
 import { ApplicationConfig, LOCALE_ID, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, TitleStrategy, withComponentInputBinding } from '@angular/router';
@@ -10,6 +12,7 @@ import { authInterceptor } from './services/api/interceptors/auth-interceptor';
 import { langInterceptor } from './services/api/interceptors/lang-interceptor';
 import { ConfigService } from './services/config.service';
 import { APP_BASE_URL } from './services/nswag/api-nswag-client';
+registerLocaleData(localeFr);
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -1,5 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '@app/services/auth/auth.service';
 import { Loader } from '@app/shared/loader/loader';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoginTemplate } from './login-template/login-template';
@@ -13,9 +14,11 @@ import { LoginTemplate } from './login-template/login-template';
 })
 export class Login {
   private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
   public userName = signal('');
   public password = signal('');
   isLoggingIn = signal(false);
+  loginFailed = signal(false);
   passwordVisible = signal(false);
   userNameTouched = signal(false);
   passwordTouched = signal(false);
@@ -38,18 +41,20 @@ export class Login {
 
   isFormValid = computed(() => !this.errorUserName() && !this.errorPassword());
 
-  onSubmit(): void {
-    if (this.isFormValid()) {
-      console.log('Connexion avec :', {
-        username: this.userName(),
-        password: this.password(),
-      });
-      if (this.userName() === 'bolan' && this.password() === 'Secret01') {
-        this.router.navigateByUrl('/register');
-      }
-    } else {
-      console.warn('Formulaire invalide');
-    }
+  loginEmail(): void {
+    if (!this.isFormValid()) return;
+
+    this.isLoggingIn.set(true);
+    this.authService.login(this.userName(), this.password()).subscribe({
+      next: () => {
+        this.isLoggingIn.set(false);
+        this.router.navigateByUrl('/home');
+      },
+      error: () => {
+        this.isLoggingIn.set(false);
+        this.loginFailed.set(true);
+      },
+    });
   }
 
   togglePasswordVisible(): void {

@@ -2,7 +2,7 @@
   <div class="account-title">
     <h4>Je crée mon compte</h4>
   </div>
-  <form [formGroup]="form" (ngsubmit)="submit()" novalidate class="form-grid">
+  <form [formGroup]="form" (ngsubmit)="submit()" novalidate class="register-form">
     <!-- Civilité -->
     <div class="input-block">
       <div class="label-container">
@@ -57,7 +57,7 @@
 
     <!-- Indicatif / Téléphone / Email -->
     <div class="inputs-container">
-      <div class="input-block required">
+      <!-- <div class="input-block required">
         <label for="dialCode">Indicatif</label>
         <input
           id="dialCode"
@@ -68,7 +68,7 @@
         @if (showRequiredError('dialCode')) {
           <div class="form-error">{{ 'formsError.required' | translate }}</div>
         }
-      </div>
+      </div> -->
       <div class="input-block required">
         <!--<label for="phoneNumber">{{ 'register.phoneNumber' | translate }}</label>
          <input
@@ -150,7 +150,7 @@
       </button>
     </app-sticky-buttons-container>
 
-    <div class="signin">
+    <div class="return-login-link">
       {{ 'register.haveAccount' | translate }}
       <a routerLink="login">{{ 'register.signIn' | translate }}</a>
     </div>

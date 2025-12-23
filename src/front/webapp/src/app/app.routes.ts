@@ -5,12 +5,13 @@ import { CreateAccount } from './pages/login/create-account/create-account';
 import { Login } from './pages/login/login';
 import { OnlineGuide } from './pages/online-guide/online-guide';
 import { ResetPassword } from './pages/reset-password/reset-password';
+import { PermissionsGuard } from './services/auth/permission.guard';
 import { PageTemplateComponent } from './shared/page-template/page-template.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/login',
     pathMatch: 'full',
   },
   {
@@ -32,16 +33,19 @@ export const routes: Routes = [
         path: 'home',
         component: Home,
         title: 'home.title',
+        canActivate: [PermissionsGuard],
       },
       {
         path: 'guide',
         component: OnlineGuide,
         title: 'navbar.onlineGuide',
+        canActivate: [PermissionsGuard],
       },
       {
         path: 'register',
         component: CreateAccount,
         title: 'register.title',
+        //canActivate: [PermissionsGuard],
       },
     ],
   },

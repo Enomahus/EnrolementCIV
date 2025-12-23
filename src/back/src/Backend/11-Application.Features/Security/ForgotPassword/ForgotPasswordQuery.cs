@@ -42,7 +42,8 @@ namespace Application.Features.Security.ForgotPassword
         UserManager<UserDao> userManager,
         ReadOnlyDbContext context,
         IEmailService emailService,
-        IOptions<AppConfiguration> config
+        IOptions<AppConfiguration> config,
+        TimeProvider timeProvider
     ) : IRequestHandler<ForgotPasswordQuery, Result>
     {
         public async Task<Result> Handle(
@@ -56,9 +57,12 @@ namespace Application.Features.Security.ForgotPassword
 
             try
             {
+                var now = timeProvider.GetUtcNow();
                 var user =
                     await context.Users.FirstOrDefaultAsync(
-                        u => u.Email == request.UserEmail,
+                        u =>
+                            u.Email == request.UserEmail
+                            && (u.DisabledDate == null || u.DisabledDate > now),
                         cancellationToken
                     ) ?? throw new NotFoundException(nameof(UserDao), request.UserEmail);
 
@@ -72,10 +76,10 @@ namespace Application.Features.Security.ForgotPassword
                     urlEncodedEmail
                 );
 
-                await emailService.SendResetPasswordEmail(link, user.Email!);
+                await emailService.SendForgotPasswordEmailAsync(link, user.Email!);
                 return Result.Default();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return Result.Default();
             }

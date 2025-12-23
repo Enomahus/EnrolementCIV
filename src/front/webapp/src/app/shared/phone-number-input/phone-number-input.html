@@ -1,4 +1,4 @@
-<div class="phone-input">
+<!-- <div class="phone-input">
   <label for="phoneNumber" class="phone-input__label">{{
     'phoneNumberInput.phoneNumber' | translate
   }}</label>
@@ -22,5 +22,62 @@
       [ngModel]="localNumber()"
       (ngModelChange)="onNumberChange($event)"
     />
+  </div>
+</div> -->
+
+<!-- <div class="phone-inputs-container">
+  <input
+    [id]="labelForId"
+    type="text"
+    [class.disabled]="readonly"
+    [formControl]="control"
+    (change)="onPhoneChange()"
+  />
+</div> -->
+
+<label class="field-label">Téléphone <span class="req">*</span></label>
+
+<div class="phone-input" (clickOutside)="closeDropdown()">
+  <!-- Zone drapeau + indicatif (bouton dropdown) -->
+  <button class="country-btn" type="button" (click)="toggleDropdown()">
+    <span
+      class="{{ filteredCountries().find(c => c.iso2 === selectedIso2())?.flagClass }}"
+      aria-hidden="true"
+    ></span>
+    <span class="dial-code">
+      {{ filteredCountries().find(c => c.iso2 === selectedIso2())?.dialCode }}
+    </span>
+    <span class="caret">▾</span>
+  </button>
+
+  <!-- Champ de saisie (format national, ex: 1 23 45 67 89) -->
+  <input
+    class="national-input"
+    [value]="formattedNational()"
+    (input)="onInputChange($event)"
+    inputmode="tel"
+    placeholder="1 23 45 67 89"
+    aria-label="Numéro de téléphone"
+  />
+
+  <!-- Dropdown pays -->
+  <div class="dropdown" *ngIf="showDropdown()">
+    <div class="search-row">
+      <input
+        type="text"
+        class="search-input"
+        [value]="search()"
+        (input)="search.set($event.target.value)"
+        placeholder="Search Country"
+      />
+    </div>
+
+    <ul class="country-list">
+      <li class="country-item" *ngFor="let c of filteredCountries()" (click)="selectCountry(c)">
+        <span class="{{ c.flagClass }}" aria-hidden="true"></span>
+        <span class="country-name">{{ c.name }}</span>
+        <span class="country-dial">{{ c.dialCode }}</span>
+      </li>
+    </ul>
   </div>
 </div>

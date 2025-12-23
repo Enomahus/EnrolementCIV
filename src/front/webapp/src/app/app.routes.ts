@@ -45,7 +45,7 @@ export const routes: Routes = [
         path: 'register',
         component: CreateAccount,
         title: 'register.title',
-        canActivate: [PermissionsGuard],
+        //canActivate: [PermissionsGuard],
       },
     ],
   },

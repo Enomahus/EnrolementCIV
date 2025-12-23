@@ -1,26 +1,130 @@
+// .phone-input {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 0.25rem;
+
+//   &__label {
+//     font-weight: 500;
+//     font-size: 0.9rem;
+//   }
+
+//   &__controls {
+//     display: flex;
+//     gap: 0.5rem;
+//     align-items: center;
+//   }
+
+//   &__select {
+//     min-width: 180px;
+//     padding: 0.25rem 0.5rem;
+//   }
+
+//   &__field {
+//     flex: 1;
+//     padding: 0.25rem 0.5rem;
+//   }
+// }
+
+.field-label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+.field-label .req {
+  color: #d32f2f;
+}
+
 .phone-input {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px;
+  align-items: center;
+  position: relative;
+  max-width: 460px;
+}
 
-  &__label {
-    font-weight: 500;
-    font-size: 0.9rem;
-  }
+.country-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #dadce0;
+  background: #fff;
+  cursor: pointer;
+}
 
-  &__controls {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-  }
+.country-btn .fi {
+  font-size: 20px;
+}
+.country-btn .dial-code {
+  font-weight: 600;
+  color: #202124;
+}
+.country-btn .caret {
+  margin-left: 4px;
+  color: #5f6368;
+}
 
-  &__select {
-    min-width: 180px;
-    padding: 0.25rem 0.5rem;
-  }
+.national-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #dadce0;
+  background: #fff;
+  font-size: 14px;
+}
 
-  &__field {
-    flex: 1;
-    padding: 0.25rem 0.5rem;
-  }
+.dropdown {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 6px);
+  z-index: 10;
+  width: 360px;
+  background: #fff;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+
+.search-row {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+.search-input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #dadce0;
+  border-radius: 6px;
+}
+
+.country-list {
+  max-height: 280px;
+  overflow: auto;
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+}
+.country-item {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.country-item:hover {
+  background: #f6f8fb;
+}
+.country-item .fi {
+  font-size: 18px;
+}
+.country-name {
+  color: #202124;
+}
+.country-dial {
+  color: #5f6368;
+  font-weight: 500;
 }

@@ -30,7 +30,7 @@
         min-width: 50%;
         object-fit: cover;
         object-position: 51%;
-        object-view-box: floor($number: 15);
+        //object-view-box: floor($number: 15);
       }
 
       .login-form-container {
@@ -61,6 +61,6 @@
   }
 
   .login {
-    background-image: "assets/images/installateur.jpeg";
+    background-image: 'assets/images/installateur.jpeg';
   }
 }

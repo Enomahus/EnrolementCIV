@@ -1,8 +1,9 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { SecurityApiService } from '@app/services/api/security-api.service';
 import { Loader } from '@app/shared/loader/loader';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LoginTemplate } from '../login/login-template/login-template';
 
 const patternEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i;
@@ -14,6 +15,9 @@ const patternEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i;
   styleUrl: './forgot-password.scss',
 })
 export class ForgotPassword {
+  private readonly translateService = inject(TranslateService);
+  private readonly securityService = inject(SecurityApiService);
+
   public email = signal('');
   emailTouched = signal(false);
   loading = signal(false);
@@ -23,9 +27,11 @@ export class ForgotPassword {
     const emailValue = this.email();
 
     if (!this.emailTouched()) return null;
-    if (!emailValue) return 'Champs requis';
+    if (!emailValue) return this.translateService.instant('formsError.required');
 
-    return patternEmail.test(emailValue) ? null : 'Email invalide';
+    return patternEmail.test(emailValue)
+      ? null
+      : this.translateService.instant('formsError.emailInvalid');
   });
 
   isFormValid = computed(() => !this.errorEmail());
@@ -35,8 +41,18 @@ export class ForgotPassword {
 
     this.loading.set(true);
 
-    console.log('Password oublié pour email :', {
-      email: this.email(),
-    });
+    this.securityService
+      .forgotPassword(this.email(), {
+        successMessage: this.translateService.instant('forgotPassword.success'),
+      })
+      .subscribe({
+        next: () => {
+          this.mailAlreadySent.set(true);
+          this.loading.set(false);
+        },
+        error: () => {
+          this.loading.set(false);
+        },
+      });
   }
 }

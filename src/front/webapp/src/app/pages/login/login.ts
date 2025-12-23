@@ -41,7 +41,7 @@ export class Login {
 
   isFormValid = computed(() => !this.errorUserName() && !this.errorPassword());
 
-  onSubmit(): void {
+  loginEmail(): void {
     if (!this.isFormValid()) return;
 
     this.isLoggingIn.set(true);

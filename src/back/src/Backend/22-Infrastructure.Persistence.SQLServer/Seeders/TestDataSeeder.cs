@@ -59,7 +59,7 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
                         UserName = "admin",
                         FirstName = "John",
                         LastName = "Doe",
-                        Email = "john.doe@pcea.com",
+                        Email = "morphulus@outlook.fr",
                         PhoneNumber = "01 02 03 04 05",
                     },
                     [AppConstants.SuperAdminRole]

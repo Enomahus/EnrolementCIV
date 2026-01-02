@@ -6,6 +6,7 @@
     "yes": "Oui",
     "no": "Non",
     "search": "Rechercher",
+    "searchCountry": "Rechercher un pays",
     "delete": "Supprimer",
     "createAccount": "Créer un compte",
     "confirmation": "Confirmation",
@@ -117,6 +118,7 @@
     "requestCollection": "Mes demandes"
   },
   "phoneNumberInput": {
-    "phoneNumber": "Téléphone"
+    "phoneNumber": "Téléphone",
+    "placeholder": "Numéro de téléphone"
   }
 }

@@ -55,33 +55,8 @@
       </div>
     </div>
 
-    <!-- Indicatif / Téléphone / Email -->
+    <!-- Email / Téléphone  -->
     <div class="inputs-container">
-      <!-- <div class="input-block required">
-        <label for="dialCode">Indicatif</label>
-        <input
-          id="dialCode"
-          type="text"
-          formControlName="dialCode"
-          (blur)="touchIfEmpty('dialCode')"
-        />
-        @if (showRequiredError('dialCode')) {
-          <div class="form-error">{{ 'formsError.required' | translate }}</div>
-        }
-      </div> -->
-      <div class="input-block required">
-        <!--<label for="phoneNumber">{{ 'register.phoneNumber' | translate }}</label>
-         <input
-          id="phoneNumber"
-          type="tel"
-          formControlName="phoneNumber"
-          (blur)="touchIfEmpty('phoneNumber')"
-        /> -->
-        <app-phone-number-input (phoneChange)="onPhoneChange($event)"></app-phone-number-input>
-        @if (showRequiredError('phoneNumber')) {
-          <div class="form-error">{{ 'formsError.required' | translate }}</div>
-        }
-      </div>
       <div class="input-block required">
         <label for="email">Email</label>
         <input id="email" type="email" formControlName="email" (blur)="touchIfEmpty('email')" />
@@ -90,6 +65,30 @@
         }
         @if (showEmailError()) {
           <div class="form-error">{{ 'formsError.emailInvalid' | translate }}</div>
+        }
+      </div>
+
+      <div class="input-block required">
+        <label for="phoneNumber">{{ 'register.phoneNumber' | translate }}</label>
+        <!--<input
+          id="phoneNumber"
+          type="tel"
+          formControlName="phoneNumber"
+          (blur)="touchIfEmpty('phoneNumber')"
+        />
+        <app-phone-number-input
+          [required]="true"
+          labelForId="phoneNumber"
+          formControlName="phoneNumber"
+          (touchIfEmpty)="touchIfEmpty('phoneNumber')"
+        ></app-phone-number-input>-->
+        <app-ngx-intl-tel-input
+          [required]="true"
+          labelForId="phoneNumber"
+          formControlName="phoneNumber"
+        ></app-ngx-intl-tel-input>
+        @if (showRequiredError('phoneNumber')) {
+          <div class="form-error">{{ 'formsError.required' | translate }}</div>
         }
       </div>
     </div>

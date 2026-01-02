@@ -3,4 +3,8 @@ export interface CountryItem {
   name: string; // ex: 'France'
   dialCode: string; // ex: '+33'
   flagClass: string; // ex: 'fi fi-fr'
+  priority: number;
+  areaCodes?: string[];
+  htmlId: string;
+  placeHolder: string;
 }

@@ -1,0 +1,20 @@
+<ngx-intl-tel-input
+  [cssClass]="'custom'"
+  [inputId]="labelForId"
+  [preferredCountries]="preferredCountries"
+  [enableAutoCountrySelect]="true"
+  [enablePlaceholder]="true"
+  [searchCountryFlag]="true"
+  [selectFirstCountry]="selectFirstCountry"
+  [selectedCountryISO]="selectedCountryISO"
+  [maxLength]="maxLength"
+  [phoneValidation]="false"
+  [separateDialCode]="true"
+  [disabled]="disabled()"
+  [name]="name()"
+  [ngModel]="viewValue()"
+  (ngModelChange)="mapChange($event)"
+  (blur)="onTouched()"
+  [required]="required"
+>
+</ngx-intl-tel-input>

@@ -1,83 +1,45 @@
-<!-- <div class="phone-input">
-  <label for="phoneNumber" class="phone-input__label">{{
-    'phoneNumberInput.phoneNumber' | translate
-  }}</label>
+<div class="phone-input-wrapper">
+  <!-- Sélecteur de pays -->
+  <div class="country-selector">
+    <button class="selector-btn" (click)="toggleDropdown()">
+      <span class="{{ selectedCountry().flagClass }}"></span>
+      <span>{{ selectedCountry().dialCode }}</span>
+    </button>
 
-  <div class="phone-input__controls">
-    <select
-      id="phoneNumber"
-      class="phone-input__select"
-      [ngModel]="selectedDialCode()"
-      (ngModelChange)="onCountryChange($event)"
-    >
-      @for (country of countries(); track country.dialCode) {
-        <option [value]="country.dialCode">({{ country.dialCode }}) {{ country.name }}</option>
-      } @empty {
-        <option disabled>Aucun pays disponible</option>
-      }
-    </select>
-    <input
-      type="tel"
-      class="phone-input__field"
-      [ngModel]="localNumber()"
-      (ngModelChange)="onNumberChange($event)"
-    />
+    @if (dropdownOpen()) {
+      <div class="dropdown">
+        <!-- Recherche -->
+        <input
+          type="text"
+          class="search-input"
+          (input)="search.set($any($event.target).value)"
+          (click)="$event.stopPropagation()"
+          [placeholder]="'global.searchCountry' | translate"
+        />
+
+        <!-- Liste filtrée -->
+        @for (c of filteredCountries(); track c.codeIso) {
+          <button class="dropdown-item" type="button" (click)="selectCountry(c)">
+            <span class="{{ c.flagClass }}"></span>
+            <span class="name">{{ c.name }}</span>
+            <span class="dial">{{ c.dialCode }}</span>
+          </button>
+        } @empty {
+          <div class="empty">{{ 'global.notFound' | translate }}</div>
+        }
+      </div>
+    }
   </div>
-</div> -->
 
-<!-- <div class="phone-inputs-container">
+  <!-- Champ de saisie -->
   <input
     [id]="labelForId"
-    type="text"
-    [class.disabled]="readonly"
-    [formControl]="control"
-    (change)="onPhoneChange()"
+    type="tel"
+    class="input-block phone-input"
+    [value]="viewValue()"
+    (input)="onInput($any($event.target).value)"
+    [required]="required"
+    (blur)="touchIfEmpty.emit('phoneNumber')"
+    [placeholder]="'phoneNumberInput.placeholder' | translate"
   />
-</div> -->
-
-<label class="field-label">Téléphone <span class="req">*</span></label>
-
-<div class="phone-input" (clickOutside)="closeDropdown()">
-  <!-- Zone drapeau + indicatif (bouton dropdown) -->
-  <button class="country-btn" type="button" (click)="toggleDropdown()">
-    <span
-      class="{{ filteredCountries().find(c => c.iso2 === selectedIso2())?.flagClass }}"
-      aria-hidden="true"
-    ></span>
-    <span class="dial-code">
-      {{ filteredCountries().find(c => c.iso2 === selectedIso2())?.dialCode }}
-    </span>
-    <span class="caret">▾</span>
-  </button>
-
-  <!-- Champ de saisie (format national, ex: 1 23 45 67 89) -->
-  <input
-    class="national-input"
-    [value]="formattedNational()"
-    (input)="onInputChange($event)"
-    inputmode="tel"
-    placeholder="1 23 45 67 89"
-    aria-label="Numéro de téléphone"
-  />
-
-  <!-- Dropdown pays -->
-  <div class="dropdown" *ngIf="showDropdown()">
-    <div class="search-row">
-      <input
-        type="text"
-        class="search-input"
-        [value]="search()"
-        (input)="search.set($event.target.value)"
-        placeholder="Search Country"
-      />
-    </div>
-
-    <ul class="country-list">
-      <li class="country-item" *ngFor="let c of filteredCountries()" (click)="selectCountry(c)">
-        <span class="{{ c.flagClass }}" aria-hidden="true"></span>
-        <span class="country-name">{{ c.name }}</span>
-        <span class="country-dial">{{ c.dialCode }}</span>
-      </li>
-    </ul>
-  </div>
 </div>

@@ -69,8 +69,8 @@
       </div>
 
       <div class="input-block required">
-        <label for="phoneNumber">{{ 'register.phoneNumber' | translate }}</label>
-        <!--<input
+        <!-- <label for="phoneNumber">{{ 'register.phoneNumber' | translate }}</label> -->
+        <input
           id="phoneNumber"
           type="tel"
           formControlName="phoneNumber"
@@ -81,12 +81,8 @@
           labelForId="phoneNumber"
           formControlName="phoneNumber"
           (touchIfEmpty)="touchIfEmpty('phoneNumber')"
-        ></app-phone-number-input>-->
-        <app-ngx-intl-tel-input
-          [required]="true"
-          labelForId="phoneNumber"
-          formControlName="phoneNumber"
-        ></app-ngx-intl-tel-input>
+        ></app-phone-number-input>
+
         @if (showRequiredError('phoneNumber')) {
           <div class="form-error">{{ 'formsError.required' | translate }}</div>
         }

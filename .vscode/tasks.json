@@ -39,5 +39,16 @@
       "problemMatcher": [],
       "label": "Generate nswag api client"
     },
+    {
+      "label": "Start services (Debug)",
+      "type": "shell",
+      "command": "docker compose -f src/back/docker-compose.yml --project-directory ./src/back up --build",
+      "problemMatcher": ["$msCompile"],
+      "options": {
+        "env": {
+          "CONFIGURATION": "Debug"
+        }
+      }
+    }
   ]
 }

@@ -12,7 +12,6 @@ import { RouterLink } from '@angular/router';
 import { patternEmail, patternPassword } from '@app/constants';
 import { PersonTitle } from '@app/services/nswag/api-nswag-client';
 import { passwordMatchValidator } from '@app/shared/helpers/for-helper';
-import { NgxIntlTelInput } from '@app/shared/ngx-intl-tel-input/ngx-intl-tel-input';
 import { PhoneNumberInput } from '@app/shared/phone-number-input/phone-number-input';
 import { StickyButtonsContainerComponent } from '@app/shared/sticky-buttons-container/sticky-buttons-container.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -27,7 +26,6 @@ import { TranslateModule } from '@ngx-translate/core';
     StickyButtonsContainerComponent,
     TranslateModule,
     PhoneNumberInput,
-    NgxIntlTelInput,
   ],
   templateUrl: './create-account.html',
   styleUrl: './create-account.scss',

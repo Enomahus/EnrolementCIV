@@ -24,6 +24,7 @@ namespace Application.Features.Users.Common
 
             dao.FirstName = model.FirstName;
             dao.LastName = model.LastName;
+            dao.ServiceNumber = model.ServiceNumber;
             dao.PhoneNumber = model.PhoneNumber;
             dao.ModifiedAt = _timeProvider.GetUtcNow();
 

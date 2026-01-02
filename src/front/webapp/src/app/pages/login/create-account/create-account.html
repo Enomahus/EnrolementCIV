@@ -76,13 +76,6 @@
           formControlName="phoneNumber"
           (blur)="touchIfEmpty('phoneNumber')"
         />
-        <!-- <app-phone-number-input
-          [required]="true"
-          labelForId="phoneNumber"
-          formControlName="phoneNumber"
-          (touchIfEmpty)="touchIfEmpty('phoneNumber')"
-        ></app-phone-number-input> -->
-
         @if (showRequiredError('phoneNumber')) {
           <div class="form-error">{{ 'formsError.required' | translate }}</div>
         }
@@ -104,7 +97,6 @@
             <i [class]="showPassword() ? 'ph ph-eye' : 'ph ph-eye-slash'"></i>
           </button>
         </div>
-        <!-- <small class="hint">8 caractères : 1 majuscule, 1 minuscule, 1 caractère spécial</small> -->
         @if (showRequiredError('password')) {
           <div class="form-error">{{ 'formsError.required' | translate }}</div>
         }
@@ -134,6 +126,43 @@
     @if (showPasswordsDontMatch()) {
       <div class="form-error">{{ 'formsError.passwordMismatch' | translate }}</div>
     }
+
+    <!--Activités / Active-->
+    <div class="inputs-container">
+      <div class="input-block required">
+        <label for="user-activity">{{ 'register.activities' | translate }}</label>
+        <select id="user-activity" formControlName="roles" (blur)="touchIfEmpty('roles')">
+          <option value="">Sélectionner</option>
+          @for (role of roles(); track role.id) {
+            <option [value]="role.name">{{ role.name }}</option>
+          }
+        </select>
+        @if (showRequiredError('roles')) {
+          <div class="form-error">{{ 'formsError.required' | translate }}</div>
+        }
+      </div>
+
+      <div class="input-block">
+        <label for="matricule">{{ 'register.serviceNumber' | translate }}</label>
+        <input
+          type="text"
+          id="matricule"
+          formControlName="matricule"
+          (blur)="touchIfEmpty('matricule')"
+        />
+        @if (showRequiredError('matricule')) {
+          <div class="form-error">{{ 'formsError.required' | translate }}</div>
+        }
+      </div>
+      <div class="input-block required">
+        <div class="options-container">
+          <label for="is-active" class="checkbox">
+            <input type="checkbox" id="is-active" formControlName="isActive" />
+            {{ 'register.isActive' | translate }}
+          </label>
+        </div>
+      </div>
+    </div>
 
     <app-sticky-buttons-container>
       <!-- Bouton -->

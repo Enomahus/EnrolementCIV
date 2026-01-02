@@ -18,6 +18,7 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
             string userName,
             string firstName,
             string lastName,
+            string serviceNumber,
             string email,
             string phoneNumber,
             string password,
@@ -32,6 +33,7 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
                     UserName = userName,
                     FirstName = firstName,
                     LastName = lastName,
+                    ServiceNumber = serviceNumber,
                     Email = email,
                     PhoneNumber = phoneNumber,
                 };

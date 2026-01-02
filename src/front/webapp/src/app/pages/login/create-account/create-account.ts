@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, effect, signal } from '@angular/core';
+import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -10,9 +10,9 @@ import {
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { patternEmail, patternPassword } from '@app/constants';
-import { PersonTitle } from '@app/services/nswag/api-nswag-client';
+import { UserService } from '@app/services/api/user-api.service';
+import { PersonTitle, RoleModel } from '@app/services/nswag/api-nswag-client';
 import { passwordMatchValidator } from '@app/shared/helpers/for-helper';
-import { PhoneNumberInput } from '@app/shared/phone-number-input/phone-number-input';
 import { StickyButtonsContainerComponent } from '@app/shared/sticky-buttons-container/sticky-buttons-container.component';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -25,17 +25,19 @@ import { TranslateModule } from '@ngx-translate/core';
     ReactiveFormsModule,
     StickyButtonsContainerComponent,
     TranslateModule,
-    PhoneNumberInput,
   ],
   templateUrl: './create-account.html',
   styleUrl: './create-account.scss',
 })
-export class CreateAccount {
+export class CreateAccount implements OnInit {
+  private readonly userService = inject(UserService);
+
   // --- Signals d’UI ---
   showPassword = signal(false);
   showConfirm = signal(false);
   termsAccepted = signal(false);
   submitting = signal(false);
+  roles = signal<RoleModel[]>([]);
 
   form: FormGroup;
 
@@ -53,12 +55,14 @@ export class CreateAccount {
         firstName: new FormControl<string | undefined>(undefined, {
           validators: [Validators.required],
         }),
-        dialCode: new FormControl<string | undefined>(undefined, {
+        isActive: new FormControl<boolean>(true, {
           validators: [Validators.required],
         }),
+        roles: new FormControl<string[]>([]),
         phoneNumber: new FormControl<string | undefined>(undefined, {
           validators: [Validators.required],
         }),
+        matricule: new FormControl<string | undefined>(undefined),
         email: new FormControl<string | undefined>(undefined, {
           validators: [Validators.required, Validators.email, Validators.pattern(patternEmail)],
         }),
@@ -78,8 +82,29 @@ export class CreateAccount {
     });
   }
 
+  ngOnInit(): void {
+    this.loadRoles();
+  }
+
+  loadRoles(): void {
+    this.userService.getAllRoles().subscribe((data) => this.roles.set(data));
+
+    this.form.get('roles')?.valueChanges.subscribe((roleValue) => {
+      const matriculeCtrl = this.form.get('matricule');
+      if (
+        roleValue === 'CommissionChairmanRole' ||
+        roleValue === 'SupervisorRole' ||
+        roleValue === 'DataEntryOperatorRole'
+      ) {
+        matriculeCtrl?.addValidators(Validators.required);
+      } else {
+        matriculeCtrl?.removeValidators(Validators.required);
+      }
+      matriculeCtrl?.updateValueAndValidity();
+    });
+  }
+
   onPhoneChange(value: string): void {
-    //this.form.controls.phoneNumber.setValue(value);
     this.form.get('phoneNumber')?.setValue(value);
   }
 

@@ -17,23 +17,6 @@ namespace Application.Features.Users.GetCurrentUser
             DateTimeOffset now
         )
         {
-            //var isSuperAdmin =
-            //    userDao.UserRoles?.Any(ur => ur.Role.Name == AppConstants.SuperAdminRole) ?? false;
-            //var fullName = $"{userDao.FirstName} {userDao.LastName}".Trim();
-
-            //return new GetCurrentUserResponse
-            //{
-            //    Id = userDao.Id,
-            //    Civility = userDao.Civility,
-            //    FirstName = userDao.FirstName,
-            //    LastName = userDao.LastName,
-            //    FullName = fullName,
-            //    Email = userDao.Email ?? "",
-            //    PhoneNumber = userDao.PhoneNumber,
-            //    IsSuperAdmin = isSuperAdmin,
-            //    Permissions = perms,
-            //};
-
             var response = new GetCurrentUserResponse();
             UserModel.MapDaoToModel(userDao, response, now);
             response.Id = userDao.Id;

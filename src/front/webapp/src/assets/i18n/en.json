@@ -88,7 +88,9 @@
     "email": "Email",
     "password": "Password",
     "confirmPassword": "Confirm password",
-    "role": "Activity"
+    "activities": "Activities",
+    "serviceNumber": "Service number",
+    "isActive": "Active"
   },
   "registrationRequests": {
     "requestCollection": "My requests"

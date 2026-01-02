@@ -26,6 +26,7 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
     ) : SeederBase(context, userManager)
     {
         private static readonly string AdminUserName = "pcea_admin";
+        private static readonly string ServiceNumber = "5432A";
 
         public override async Task SeedDataAsync()
         {
@@ -58,6 +59,7 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
                 AdminUserName,
                 "Pcea",
                 "Admin",
+                ServiceNumber,
                 "dev@pcea.com",
                 "01 02 03 04 05",
                 dataConfig.Value.DefaultUserPassword,
@@ -69,10 +71,7 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
         {
             // First, update the list of permissions and actions
             var newPermissions = Enum.GetValues<AppPermission>();
-            var existingPermissionsArray = string.Join(
-                ", ",
-                newPermissions.Select(p => $"'{p.ToString()}'")
-            );
+            var existingPermissionsArray = string.Join(", ", newPermissions.Select(p => $"'{p}'"));
 
             var deleteSqlCommand =
                 $"DELETE FROM AppPermissions WHERE PermissionCode NOT IN ({existingPermissionsArray})";
@@ -90,10 +89,7 @@ namespace Infrastructure.Persistence.SQLServer.Seeders
 
             var newActions = Enum.GetValues<AppAction>()
                 .Select(perm => new AppActionDao() { ActionCode = perm });
-            var existingActionsArray = string.Join(
-                ", ",
-                newActions.Select(p => $"'{p.ToString()}'")
-            );
+            var existingActionsArray = string.Join(", ", newActions.Select(p => $"'{p}'"));
             deleteSqlCommand =
                 $"DELETE FROM AppAction WHERE ActionCode NOT IN ({existingActionsArray})";
             if (_context.Database.IsRelational())

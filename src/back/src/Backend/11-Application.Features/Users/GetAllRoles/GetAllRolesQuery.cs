@@ -9,7 +9,7 @@ using Tools.Logging;
 
 namespace Application.Features.Users.GetAllRoles
 {
-    [WithPermission(nameof(AppPermission.GetAllRoles))]
+    //[WithPermission(nameof(AppPermission.GetAllRoles))]
     public class GetAllRolesQuery : IRequest<Result<List<RoleModel>>> { }
 
     public class GetAllRolesQueryValidator : AbstractValidator<GetAllRolesQuery> { }

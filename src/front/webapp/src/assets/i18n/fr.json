@@ -112,7 +112,9 @@
     "email": "Email",
     "password": "Mot de passe",
     "confirmPassword": "Confirmation de mot de passe",
-    "role": "Activité"
+    "activities": "Activités",
+    "serviceNumber": "Matricule",
+    "isActive": "Actif"
   },
   "registrationRequests": {
     "requestCollection": "Mes demandes"

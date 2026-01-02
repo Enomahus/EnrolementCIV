@@ -49,6 +49,9 @@ export class PhoneNumberInput implements ControlValueAccessor {
     name: this.regionNames.of(isoCode) ?? isoCode,
     dialCode: `+${getCountryCallingCode(isoCode)}`,
     flagClass: `flag flag-${isoCode.toLowerCase()}`,
+    priority: 0,
+    htmlId: '',
+    placeHolder: '',
   }));
 
   selectedCountry = signal<CountryItem>(this.countries[0]);

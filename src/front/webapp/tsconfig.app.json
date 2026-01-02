@@ -6,7 +6,8 @@
     "outDir": "./out-tsc/app",
     "types": [
       "@angular/localize"
-    ]
+    ],
+    "typeRoots": ["nodes_modules/@types","src/types"]
   },
   "files": ["src/main.ts"],
   "include": [
